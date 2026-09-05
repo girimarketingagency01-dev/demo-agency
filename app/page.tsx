@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const [cursorHidden, setCursorHidden] = useState(false);
   const [activePlanet, setActivePlanet] = useState<string | null>(null);
 
   useEffect(() => {
