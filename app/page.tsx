@@ -1,69 +1,432 @@
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const [activePlanet, setActivePlanet] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+  const x = event.clientX;
+  const y = event.clientY;
+
+  setMouse({
+    x,
+    y,
+  });
+
+  const planets = document.querySelectorAll<HTMLElement>(".planet");
+
+  let closestPlanet: string | null = null;
+  let closestDistance = 110;
+
+  planets.forEach((planet) => {
+    const rect = planet.getBoundingClientRect();
+
+    const planetX = rect.left + rect.width / 2;
+    const planetY = rect.top + rect.height / 2;
+
+    const distance = Math.sqrt(
+      Math.pow(x - planetX, 2) +
+      Math.pow(y - planetY, 2)
+    );
+
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestPlanet = planet.dataset.planet || null;
+    }
+  });
+
+  setActivePlanet(closestPlanet);
+};
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <main>
+
+      {/* =========================
+          CUSTOM INFINITY CURSOR
+      ========================= */}
+
+      <div
+      className="infinity-cursor"
+  style={{
+    left: mouse.x,
+    top: mouse.y,
+  }}
+>
+  ∞
+</div>
+
+
+      {/* =========================
+          NAVBAR
+      ========================= */}
+
+      <header className="navbar">
+
+        <div className="logo">
+
+          <img
+            src="/logo.jpg"
+            alt="Infinity Digital Marketing"
+            style={{
+              width: "48px",
+              height: "48px",
+              objectFit: "contain",
+            }}
+          />
+
+          <div>
+            <strong>INFINITY</strong>
+            <small>DIGITAL MARKETING</small>
+          </div>
+
+        </div>
+
+        <nav>
+          <a href="#services">Services</a>
+          <a href="#work">Work</a>
+          <a href="#about">About</a>
+          <a href="#insights">Insights</a>
+        </nav>
+
+        <a href="#contact" className="nav-button">
+          Let's Talk →
+        </a>
+
+      </header>
+
+
+      {/* =========================
+          HERO
+      ========================= */}
+
+      <section className="hero">
+
+        <div className="hero-grid"></div>
+
+
+        {/* LEFT CONTENT */}
+
+        <div className="hero-content">
+
+          <div className="eyebrow">
+            <span></span>
+            DIGITAL PARTNERS FOR AMBITIOUS BRANDS
+          </div>
+
+
+          <h1>
+            We Make
+            <br />
+
+            <span>Brands</span>
+
+            <br />
+
+            Go Beyond.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+
+          <p>
+            Performance marketing, social media, paid advertising,
+            web experiences and digital strategy — all working together
+            to make your brand impossible to ignore.
           </p>
+
+
+          <div className="hero-buttons">
+
+            <a href="#contact" className="primary-button">
+              Start a Conversation →
+            </a>
+
+            <a href="#services" className="secondary-button">
+              Explore Services
+            </a>
+
+          </div>
+
+
+          <div className="hero-services">
+
+            <span>
+              <i>✦</i> PERFORMANCE
+            </span>
+
+            <span>
+              <i>✦</i> SOCIAL
+            </span>
+
+            <span>
+              <i>✦</i> ADS
+            </span>
+
+            <span>
+              <i>✦</i> WEB
+            </span>
+
+            <span>
+              <i>✦</i> BRANDING
+            </span>
+
+          </div>
+
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+
+        {/* =========================
+            DIGITAL UNIVERSE
+        ========================= */}
+
+        <div
+  className="universe"
+  onMouseEnter={() => setCursorHidden(true)}
+  onMouseLeave={() => setCursorHidden(false)}
+>
+
+          <div className="core-glow"></div>
+
+          <div className="orbit orbit-one"></div>
+          <div className="orbit orbit-two"></div>
+          <div className="orbit orbit-three"></div>
+
+
+          <div className="infinity-core">
+  <span>∞</span>
+</div>
+
+
+          <div
+  className={`planet planet-one ${
+    activePlanet === "seo" ? "planet-active" : ""
+  }`}
+  data-planet="seo"
+>
+  <span>SEO</span>
+</div>
+
+<div
+  className={`planet planet-two ${
+    activePlanet === "ads" ? "planet-active" : ""
+  }`}
+  data-planet="ads"
+>
+  <span>ADS</span>
+</div>
+
+<div
+  className={`planet planet-three ${
+    activePlanet === "web" ? "planet-active" : ""
+  }`}
+  data-planet="web"
+>
+  <span>WEB</span>
+</div>
+
+<div
+  className={`planet planet-four ${
+    activePlanet === "social" ? "planet-active" : ""
+  }`}
+  data-planet="social"
+>
+  <span>SOCIAL</span>
+</div>
+
+
+          <div className="star star-one">✦</div>
+          <div className="star star-two">✦</div>
+          <div className="star star-three">✦</div>
+          <div className="star star-four">✦</div>
+          <div className="star star-five">✦</div>
+
+
+          <div className="universe-label">
+            <span>∞</span>
+            ONE BRAND · INFINITE POSSIBILITIES
+          </div>
+
         </div>
-      </main>
+
+      </section>
+
+
+{/* =========================
+    TRUSTED / CAPABILITIES
+========================= */}
+
+<section className="trusted-section">
+
+  <div className="trusted-label">
+    <span></span>
+    BUILT FOR AMBITIOUS BRANDS
+    <span></span>
+  </div>
+
+  <div className="trusted-track">
+    <div className="trusted-items">
+      <span>PERFORMANCE</span>
+      <i>✦</i>
+      <span>SOCIAL MEDIA</span>
+      <i>✦</i>
+      <span>GOOGLE ADS</span>
+      <i>✦</i>
+      <span>META ADS</span>
+      <i>✦</i>
+      <span>SEO</span>
+      <i>✦</i>
+      <span>WEB DEVELOPMENT</span>
+      <i>✦</i>
+      <span>BRANDING</span>
+      <i>✦</i>
+      <span>DIGITAL STRATEGY</span>
+      <i>✦</i>
     </div>
+  </div>
+
+</section>
+
+      {/* =========================
+          SERVICES PREVIEW
+      ========================= */}
+
+      <section className="services-preview" id="services">
+
+        <div className="section-heading">
+
+          <span>WHAT WE DO</span>
+
+          <h2>
+            Everything your
+            <br />
+            brand needs to{" "}
+            <em>grow.</em>
+          </h2>
+
+          <p>
+            From performance marketing to powerful digital experiences,
+            we bring strategy, creativity and technology together under
+            one roof.
+          </p>
+
+        </div>
+
+
+        <div className="service-grid">
+
+          <div className="service-card">
+            <div className="service-number">01</div>
+
+            <h3>Performance Marketing</h3>
+
+            <p>
+              Data-driven campaigns designed to turn attention
+              into measurable business growth.
+            </p>
+
+            <div className="service-arrow">↗</div>
+          </div>
+
+
+          <div className="service-card">
+            <div className="service-number">02</div>
+
+            <h3>Social Media</h3>
+
+            <p>
+              Build a stronger digital presence with content,
+              strategy and social campaigns that connect.
+            </p>
+
+            <div className="service-arrow">↗</div>
+          </div>
+
+
+          <div className="service-card">
+            <div className="service-number">03</div>
+
+            <h3>Google & Meta Ads</h3>
+
+            <p>
+              Reach the right audience with high-intent paid
+              campaigns built around performance.
+            </p>
+
+            <div className="service-arrow">↗</div>
+          </div>
+
+
+          <div className="service-card">
+            <div className="service-number">04</div>
+
+            <h3>Web Development</h3>
+
+            <p>
+              Fast, responsive and memorable digital experiences
+              built to represent your brand.
+            </p>
+
+            <div className="service-arrow">↗</div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* =========================
+          FINAL CTA
+      ========================= */}
+
+      <section className="final-cta" id="contact">
+
+        <span>READY TO GO BEYOND?</span>
+
+        <h2>
+          Let's build
+          <br />
+          something <em>infinite.</em>
+        </h2>
+
+        <a href="mailto:hello@infinitydigitalmarketing.com">
+          Start a Conversation →
+        </a>
+
+      </section>
+
+
+      {/* =========================
+          FOOTER
+      ========================= */}
+
+      <footer>
+
+        <div className="footer-logo">
+
+          <span>∞</span>
+
+          <strong>INFINITY</strong>
+
+        </div>
+
+        <p>
+          Digital Marketing · Performance · Creative · Web
+        </p>
+
+        <small>
+          © 2026 Infinity Digital Marketing
+        </small>
+
+      </footer>
+
+    </main>
   );
 }
