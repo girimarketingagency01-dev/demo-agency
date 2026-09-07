@@ -1,34 +1,45 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 
 export default function Home() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
-  const [cursorHidden, setCursorHidden] = useState(false);
+  const [isCursorVisible, setIsCursorVisible] = useState(false);
   const [activePlanet, setActivePlanet] = useState<string | null>(null);
+
+  const storySectionRef = useRef<HTMLElement | null>(null);
+const storySceneRef = useRef<HTMLDivElement | null>(null);
+
+const storyLineOneRef = useRef<HTMLHeadingElement | null>(null);
+const storyLineTwoRef = useRef<HTMLHeadingElement | null>(null);
+const storyLineThreeRef = useRef<HTMLHeadingElement | null>(null);
+
+const storyCapabilitiesRef = useRef<HTMLDivElement | null>(null);
+
 
 useEffect(() => {
   const handleMouseMove = (event: MouseEvent) => {
     const x = event.clientX;
     const y = event.clientY;
 
+    // Store current mouse position
+    setMouse({ x, y });
 
-    const outside =
-  x <= 0 ||
-  y <= 0 ||
-  x >= window.innerWidth - 1 ||
-  y >= window.innerHeight - 1;
+    // Hide cursor when it touches any viewport edge.
+    const EDGE_GAP = 3;
 
-if (outside) {
-  document.body.classList.add("cursor-outside");
-} else {
-  document.body.classList.remove("cursor-outside");
-}
-    setMouse({
-      x,
-      y,
-    });
+    const outsideViewport =
+      x <= EDGE_GAP ||
+      y <= EDGE_GAP ||
+      x >= window.innerWidth - EDGE_GAP ||
+      y >= window.innerHeight - EDGE_GAP;
 
+    setIsCursorVisible(!outsideViewport);
+
+    // Planet proximity effect
     const planets = document.querySelectorAll<HTMLElement>(".planet");
 
     let closestPlanet: string | null = null;
@@ -40,9 +51,9 @@ if (outside) {
       const planetX = rect.left + rect.width / 2;
       const planetY = rect.top + rect.height / 2;
 
-      const distance = Math.sqrt(
-        Math.pow(x - planetX, 2) +
-        Math.pow(y - planetY, 2)
+      const distance = Math.hypot(
+        x - planetX,
+        y - planetY
       );
 
       if (distance < closestDistance) {
@@ -55,22 +66,139 @@ if (outside) {
   };
 
   const handleMouseLeave = () => {
-    document.body.classList.add("cursor-outside");
-  };
-
-  const handleMouseEnter = () => {
-    document.body.classList.remove("cursor-outside");
+    setIsCursorVisible(false);
+    setActivePlanet(null);
   };
 
   window.addEventListener("mousemove", handleMouseMove);
-  document.addEventListener("mouseleave", handleMouseLeave);
-  document.addEventListener("mouseenter", handleMouseEnter);
+  document.documentElement.addEventListener(
+    "mouseleave",
+    handleMouseLeave
+  );
 
   return () => {
     window.removeEventListener("mousemove", handleMouseMove);
-    document.removeEventListener("mouseleave", handleMouseLeave);
-    document.removeEventListener("mouseenter", handleMouseEnter);
+    document.documentElement.removeEventListener(
+      "mouseleave",
+      handleMouseLeave
+    );
   };
+}, []);
+
+
+
+useLayoutEffect(() => {
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = storySectionRef.current;
+  const scene = storySceneRef.current;
+
+  const lineOne = storyLineOneRef.current;
+  const lineTwo = storyLineTwoRef.current;
+  const lineThree = storyLineThreeRef.current;
+
+  const capabilities = storyCapabilitiesRef.current;
+
+  if (
+    !section ||
+    !scene ||
+    !lineOne ||
+    !lineTwo ||
+    !lineThree ||
+    !capabilities
+  ) {
+    return;
+  }
+
+  const ctx = gsap.context(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top top",
+        end: "+=2600",
+        pin: true,
+        scrub: 1,
+        anticipatePin: 1,
+      },
+    });
+
+    // Initial state
+    gsap.set(lineOne, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+    });
+
+    gsap.set(lineTwo, {
+      opacity: 0,
+      y: 40,
+      scale: 0.96,
+    });
+
+    gsap.set(lineThree, {
+      opacity: 0,
+      y: 40,
+      scale: 0.96,
+    });
+
+    gsap.set(capabilities, {
+      xPercent: 35,
+      opacity: 0,
+    });
+
+    // Scene 1 → Scene 2
+    tl.to(lineOne, {
+      opacity: 0,
+      y: -45,
+      scale: 0.96,
+      duration: 1,
+      ease: "power2.inOut",
+    });
+
+    tl.to(lineTwo, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.8,
+      ease: "power2.out",
+    }, "-=0.25");
+
+    // Scene 2 → Scene 3
+    tl.to(lineTwo, {
+      opacity: 0,
+      y: -45,
+      scale: 0.96,
+      duration: 1,
+      ease: "power2.inOut",
+    }, "+=0.35");
+
+    tl.to(lineThree, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.8,
+      ease: "power2.out",
+    }, "-=0.25");
+
+    // Prepare typography scene for capabilities
+    tl.to(lineThree, {
+      opacity: 0,
+      scale: 0.95,
+      y: -30,
+      duration: 0.8,
+      ease: "power2.inOut",
+    }, "+=0.45");
+
+    // Right → left capability movement
+    tl.to(capabilities, {
+      xPercent: -35,
+      opacity: 1,
+      duration: 2.2,
+      ease: "none",
+    }, "-=0.15");
+  }, section);
+
+  return () => ctx.revert();
 }, []);
 
   return (
@@ -80,11 +208,12 @@ if (outside) {
           CUSTOM INFINITY CURSOR
       ========================= */}
 
-      <div
-      className="infinity-cursor"
+<div
+  className="infinity-cursor"
   style={{
     left: mouse.x,
     top: mouse.y,
+    opacity: isCursorVisible ? 1 : 0,
   }}
 >
   ∞
@@ -131,157 +260,282 @@ if (outside) {
 
 
       {/* =========================
-          HERO
-      ========================= */}
+    IMMERSIVE HERO
+========================= */}
 
-      <section className="hero">
+<section className="immersive-hero">
 
-        <div className="hero-grid"></div>
+  <div className="immersive-grid"></div>
 
-
-        {/* LEFT CONTENT */}
-
-        <div className="hero-content">
-
-          <div className="eyebrow">
-            <span></span>
-            DIGITAL PARTNERS FOR AMBITIOUS BRANDS
-          </div>
+  <div className="hero-noise"></div>
 
 
-          <h1>
-            We Make
-            <br />
+  {/* LEFT CONTENT */}
 
-            <span>Brands</span>
+  <div className="immersive-content">
 
-            <br />
+    <div className="eyebrow">
+      <span></span>
+      DIGITAL PARTNERS FOR AMBITIOUS BRANDS
+    </div>
 
-            Go Beyond.
-          </h1>
+    <h1>
+      We Make
+      <br />
+      <span>Brands</span>
+      <br />
+      Go Beyond.
+    </h1>
 
+    <p>
+      Strategy, creativity, technology and performance marketing —
+      everything your business needs to build a powerful digital brand
+      and grow without limits.
+    </p>
 
-          <p>
-            Performance marketing, social media, paid advertising,
-            web experiences and digital strategy — all working together
-            to make your brand impossible to ignore.
-          </p>
+    <div className="hero-buttons">
 
+      <a href="#contact" className="primary-button">
+        Start a Conversation →
+      </a>
 
-          <div className="hero-buttons">
+      <a href="#services" className="secondary-button">
+        Explore Services
+      </a>
 
-            <a href="#contact" className="primary-button">
-              Start a Conversation →
-            </a>
-
-            <a href="#services" className="secondary-button">
-              Explore Services
-            </a>
-
-          </div>
-
-
-          <div className="hero-services">
-
-            <span>
-              <i>✦</i> PERFORMANCE
-            </span>
-
-            <span>
-              <i>✦</i> SOCIAL
-            </span>
-
-            <span>
-              <i>✦</i> ADS
-            </span>
-
-            <span>
-              <i>✦</i> WEB
-            </span>
-
-            <span>
-              <i>✦</i> BRANDING
-            </span>
-
-          </div>
-
-        </div>
+    </div>
 
 
-        {/* =========================
-            DIGITAL UNIVERSE
-        ========================= */}
+    <div className="hero-capabilities">
 
-        <div
-  className="universe"
-  onMouseEnter={() => setCursorHidden(true)}
-  onMouseLeave={() => setCursorHidden(false)}
+      <span>PERFORMANCE</span>
+      <i>✦</i>
+
+      <span>SOCIAL</span>
+      <i>✦</i>
+
+      <span>SEO</span>
+      <i>✦</i>
+
+      <span>ADS</span>
+      <i>✦</i>
+
+      <span>WEB</span>
+
+    </div>
+
+  </div>
+
+
+  {/* RIGHT INTERACTIVE UNIVERSE */}
+
+  <div className="immersive-universe">
+  
+
+    <div className="universe-halo"></div>
+
+    <div className="orbit orbit-one"></div>
+    <div className="orbit orbit-two"></div>
+    <div className="orbit orbit-three"></div>
+
+
+    {/* CONNECTING LINES */}
+
+    <div className="energy-line energy-line-one"></div>
+    <div className="energy-line energy-line-two"></div>
+
+
+    {/* CENTER */}
+
+    <div className="infinity-core">
+
+      <div className="core-inner-glow"></div>
+
+      <span>∞</span>
+
+    </div>
+
+
+    {/* PLANETS */}
+
+    <div
+      className={`planet planet-one ${
+        activePlanet === "seo" ? "planet-active" : ""
+      }`}
+      data-planet="seo"
+    >
+      <span>SEO</span>
+    </div>
+
+
+    <div
+      className={`planet planet-two ${
+        activePlanet === "ads" ? "planet-active" : ""
+      }`}
+      data-planet="ads"
+    >
+      <span>ADS</span>
+    </div>
+
+
+    <div
+      className={`planet planet-three ${
+        activePlanet === "web" ? "planet-active" : ""
+      }`}
+      data-planet="web"
+    >
+      <span>WEB</span>
+    </div>
+
+
+    <div
+      className={`planet planet-four ${
+        activePlanet === "social" ? "planet-active" : ""
+      }`}
+      data-planet="social"
+    >
+      <span>SOCIAL</span>
+    </div>
+
+
+    {/* PARTICLES */}
+
+    <span className="floating-particle particle-one"></span>
+    <span className="floating-particle particle-two"></span>
+    <span className="floating-particle particle-three"></span>
+    <span className="floating-particle particle-four"></span>
+    <span className="floating-particle particle-five"></span>
+    <span className="floating-particle particle-six"></span>
+
+
+    {/* STARS */}
+
+    <div className="star star-one">✦</div>
+    <div className="star star-two">✦</div>
+    <div className="star star-three">✦</div>
+    <div className="star star-four">✦</div>
+    <div className="star star-five">✦</div>
+
+
+    <div className="universe-label">
+      <span>∞</span>
+      ONE BRAND · INFINITE POSSIBILITIES
+    </div>
+
+    </div>
+
+
+  {/* SCROLL INDICATOR */}
+
+  <div className="hero-scroll">
+
+    <span>SCROLL TO EXPLORE</span>
+
+    <div className="scroll-line">
+      <span></span>
+    </div>
+
+  </div>
+
+</section>
+
+
+
+
+
+
+
+{/* =====================================================
+    SCROLL STORY SECTION
+===================================================== */}
+
+<section
+  ref={storySectionRef}
+  className="scroll-story"
 >
+  <div
+    ref={storySceneRef}
+    className="scroll-story-scene"
+  >
 
-          <div className="core-glow"></div>
+    {/* SMALL LABEL */}
 
-          <div className="orbit orbit-one"></div>
-          <div className="orbit orbit-two"></div>
-          <div className="orbit orbit-three"></div>
+    <div className="scroll-story-label">
+      <span></span>
+      HOW WE THINK
+    </div>
 
 
-          <div className="infinity-core">
-  <span>∞</span>
+    {/* MAIN TYPOGRAPHY */}
+
+    <div className="scroll-story-words">
+
+      <h2 ref={storyLineOneRef}>
+        We turn business
+      </h2>
+
+      <h2 ref={storyLineTwoRef}>
+        <span>goals into</span>
+      </h2>
+
+      <h2 ref={storyLineThreeRef}>
+        digital growth.
+      </h2>
+
+    </div>
+
+
+    {/* CAPABILITIES */}
+
+    <div
+      ref={storyCapabilitiesRef}
+      className="story-capabilities"
+    >
+
+      <span>STRATEGY</span>
+      <i>✦</i>
+
+      <span>CREATIVE</span>
+      <i>✦</i>
+
+      <span>TECHNOLOGY</span>
+      <i>✦</i>
+
+      <span>PERFORMANCE</span>
+      <i>✦</i>
+
+      <span>STRATEGY</span>
+      <i>✦</i>
+
+      <span>CREATIVE</span>
+      <i>✦</i>
+
+    </div>
+
+
+    {/* SMALL INFINITY DETAIL */}
+
+    <div className="story-infinity">
+      ∞
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+
+
+<div className="hero-transition-space">
+  <div className="hero-transition-message">
+    <span>∞</span>
+    <p>ONE BRAND. INFINITE POSSIBILITIES.</p>
+  </div>
 </div>
 
 
-          <div
-  className={`planet planet-one ${
-    activePlanet === "seo" ? "planet-active" : ""
-  }`}
-  data-planet="seo"
->
-  <span>SEO</span>
-</div>
-
-<div
-  className={`planet planet-two ${
-    activePlanet === "ads" ? "planet-active" : ""
-  }`}
-  data-planet="ads"
->
-  <span>ADS</span>
-</div>
-
-<div
-  className={`planet planet-three ${
-    activePlanet === "web" ? "planet-active" : ""
-  }`}
-  data-planet="web"
->
-  <span>WEB</span>
-</div>
-
-<div
-  className={`planet planet-four ${
-    activePlanet === "social" ? "planet-active" : ""
-  }`}
-  data-planet="social"
->
-  <span>SOCIAL</span>
-</div>
-
-
-          <div className="star star-one">✦</div>
-          <div className="star star-two">✦</div>
-          <div className="star star-three">✦</div>
-          <div className="star star-four">✦</div>
-          <div className="star star-five">✦</div>
-
-
-          <div className="universe-label">
-            <span>∞</span>
-            ONE BRAND · INFINITE POSSIBILITIES
-          </div>
-
-        </div>
-
-      </section>
 
 
 {/* =========================
@@ -577,3 +831,23 @@ if (outside) {
     </main>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
