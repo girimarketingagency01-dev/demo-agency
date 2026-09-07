@@ -35,8 +35,8 @@ a {
 .infinity-cursor {
   position: fixed;
   z-index: 99999;
-  width: 25px;
-  height: 25px;
+  width: 32px;
+  height: 32px;
   transform: translate(-50%, -50%);
   pointer-events: none;
   .cursor-hidden {
@@ -48,7 +48,7 @@ a {
   align-items: center;
   justify-content: center;
 
-  font-size: 25px;
+  font-size: 32px;
   font-weight: 700;
 
   background: linear-gradient(
