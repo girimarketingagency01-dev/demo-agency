@@ -296,91 +296,213 @@ export default function Home() {
 </section>
 
       {/* =========================
-          SERVICES PREVIEW
-      ========================= */}
+    SERVICES — INTERACTIVE
+========================= */}
 
-      <section className="services-preview" id="services">
+<section className="services-interactive" id="services">
 
-        <div className="section-heading">
+  <div className="services-intro">
 
-          <span>WHAT WE DO</span>
+    <div className="services-kicker">
+      <span></span>
+      OUR CAPABILITIES
+    </div>
 
-          <h2>
-            Everything your
-            <br />
-            brand needs to{" "}
-            <em>grow.</em>
-          </h2>
+    <h2>
+      One agency.
+      <br />
+      <em>Infinite ways to grow.</em>
+    </h2>
+
+    <p>
+      Strategy, creativity, technology and performance —
+      connected together to build brands that move forward.
+    </p>
+
+  </div>
+
+
+  <div className="services-list">
+
+    {/* 01 */}
+
+    <a href="#" className="interactive-service">
+
+      <div className="service-left">
+
+        <span className="interactive-number">01</span>
+
+        <div>
+          <h3>Performance Marketing</h3>
 
           <p>
-            From performance marketing to powerful digital experiences,
-            we bring strategy, creativity and technology together under
-            one roof.
+            Turn attention into measurable business growth.
+          </p>
+        </div>
+
+      </div>
+
+      <div className="service-middle">
+        PERFORMANCE
+      </div>
+
+      <span className="interactive-arrow">↗</span>
+
+    </a>
+
+
+    {/* 02 */}
+
+    <a href="#" className="interactive-service">
+
+      <div className="service-left">
+
+        <span className="interactive-number">02</span>
+
+        <div>
+          <h3>Social Media</h3>
+
+          <p>
+            Build attention, community and a stronger digital presence.
+          </p>
+        </div>
+
+      </div>
+
+      <div className="service-middle">
+        SOCIAL
+      </div>
+
+      <span className="interactive-arrow">↗</span>
+
+    </a>
+
+
+    {/* 03 */}
+
+    <a href="#" className="interactive-service">
+
+      <div className="service-left">
+
+        <span className="interactive-number">03</span>
+
+        <div>
+          <h3>Google & Meta Ads</h3>
+
+          <p>
+            Reach the right audience with performance-driven campaigns.
           </p>
 
         </div>
 
+      </div>
 
-        <div className="service-grid">
+      <div className="service-middle">
+        ADS
+      </div>
 
-          <div className="service-card">
-            <div className="service-number">01</div>
+      <span className="interactive-arrow">↗</span>
 
-            <h3>Performance Marketing</h3>
-
-            <p>
-              Data-driven campaigns designed to turn attention
-              into measurable business growth.
-            </p>
-
-            <div className="service-arrow">↗</div>
-          </div>
+    </a>
 
 
-          <div className="service-card">
-            <div className="service-number">02</div>
+    {/* 04 */}
 
-            <h3>Social Media</h3>
+    <a href="#" className="interactive-service">
 
-            <p>
-              Build a stronger digital presence with content,
-              strategy and social campaigns that connect.
-            </p>
+      <div className="service-left">
 
-            <div className="service-arrow">↗</div>
-          </div>
+        <span className="interactive-number">04</span>
 
+        <div>
+          <h3>SEO & Organic Growth</h3>
 
-          <div className="service-card">
-            <div className="service-number">03</div>
-
-            <h3>Google & Meta Ads</h3>
-
-            <p>
-              Reach the right audience with high-intent paid
-              campaigns built around performance.
-            </p>
-
-            <div className="service-arrow">↗</div>
-          </div>
-
-
-          <div className="service-card">
-            <div className="service-number">04</div>
-
-            <h3>Web Development</h3>
-
-            <p>
-              Fast, responsive and memorable digital experiences
-              built to represent your brand.
-            </p>
-
-            <div className="service-arrow">↗</div>
-          </div>
+          <p>
+            Build sustainable visibility and long-term digital growth.
+          </p>
 
         </div>
 
-      </section>
+      </div>
+
+      <div className="service-middle">
+        SEO
+      </div>
+
+      <span className="interactive-arrow">↗</span>
+
+    </a>
+
+
+    {/* 05 */}
+
+    <a href="#" className="interactive-service">
+
+      <div className="service-left">
+
+        <span className="interactive-number">05</span>
+
+        <div>
+          <h3>Web Development</h3>
+
+          <p>
+            Create fast, responsive and memorable digital experiences.
+          </p>
+
+        </div>
+
+      </div>
+
+      <div className="service-middle">
+        WEB
+      </div>
+
+      <span className="interactive-arrow">↗</span>
+
+    </a>
+
+
+    {/* 06 */}
+
+    <a href="#" className="interactive-service">
+
+      <div className="service-left">
+
+        <span className="interactive-number">06</span>
+
+        <div>
+          <h3>Branding & Digital Strategy</h3>
+
+          <p>
+            Shape a clear identity and strategy built for what's next.
+          </p>
+
+        </div>
+
+      </div>
+
+      <div className="service-middle">
+        BRAND
+      </div>
+
+      <span className="interactive-arrow">↗</span>
+
+    </a>
+
+  </div>
+
+
+  <div className="services-bottom">
+
+    <span>∞</span>
+
+    <p>
+      MULTIPLE DISCIPLINES · ONE CONNECTED SYSTEM
+    </p>
+
+  </div>
+
+</section>
 
 
       {/* =========================
