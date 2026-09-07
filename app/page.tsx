@@ -7,47 +7,71 @@ export default function Home() {
   const [cursorHidden, setCursorHidden] = useState(false);
   const [activePlanet, setActivePlanet] = useState<string | null>(null);
 
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-  const x = event.clientX;
-  const y = event.clientY;
+useEffect(() => {
+  const handleMouseMove = (event: MouseEvent) => {
+    const x = event.clientX;
+    const y = event.clientY;
 
-  setMouse({
-    x,
-    y,
-  });
 
-  const planets = document.querySelectorAll<HTMLElement>(".planet");
+    const outside =
+  x <= 0 ||
+  y <= 0 ||
+  x >= window.innerWidth - 1 ||
+  y >= window.innerHeight - 1;
 
-  let closestPlanet: string | null = null;
-  let closestDistance = 110;
+if (outside) {
+  document.body.classList.add("cursor-outside");
+} else {
+  document.body.classList.remove("cursor-outside");
+}
+    setMouse({
+      x,
+      y,
+    });
 
-  planets.forEach((planet) => {
-    const rect = planet.getBoundingClientRect();
+    const planets = document.querySelectorAll<HTMLElement>(".planet");
 
-    const planetX = rect.left + rect.width / 2;
-    const planetY = rect.top + rect.height / 2;
+    let closestPlanet: string | null = null;
+    let closestDistance = 110;
 
-    const distance = Math.sqrt(
-      Math.pow(x - planetX, 2) +
-      Math.pow(y - planetY, 2)
-    );
+    planets.forEach((planet) => {
+      const rect = planet.getBoundingClientRect();
 
-    if (distance < closestDistance) {
-      closestDistance = distance;
-      closestPlanet = planet.dataset.planet || null;
-    }
-  });
+      const planetX = rect.left + rect.width / 2;
+      const planetY = rect.top + rect.height / 2;
 
-  setActivePlanet(closestPlanet);
-};
+      const distance = Math.sqrt(
+        Math.pow(x - planetX, 2) +
+        Math.pow(y - planetY, 2)
+      );
 
-    window.addEventListener("mousemove", handleMouseMove);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestPlanet = planet.dataset.planet || null;
+      }
+    });
 
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
+    setActivePlanet(closestPlanet);
+  };
+
+  const handleMouseLeave = () => {
+    document.body.classList.add("cursor-outside");
+  };
+
+  const handleMouseEnter = () => {
+    document.body.classList.remove("cursor-outside");
+  };
+
+  window.addEventListener("mousemove", handleMouseMove);
+  document.addEventListener("mouseleave", handleMouseLeave);
+  document.addEventListener("mouseenter", handleMouseEnter);
+
+  return () => {
+    window.removeEventListener("mousemove", handleMouseMove);
+    document.removeEventListener("mouseleave", handleMouseLeave);
+    document.removeEventListener("mouseenter", handleMouseEnter);
+  };
+}, []);
 
   return (
     <main>
