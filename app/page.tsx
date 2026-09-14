@@ -10,6 +10,8 @@ useState,
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import { createPortal } from "react-dom";
+
 export default function Home() {
 const [mouse, setMouse] = useState({
 x: 0,
@@ -19,8 +21,51 @@ y: 0,
 const [isCursorVisible, setIsCursorVisible] =
 useState(false);
 
+
 const [activePlanet, setActivePlanet] =
 useState<string | null>(null);
+
+
+
+const [serviceIndex, setServiceIndex] = useState(0);
+const [isContactOpen, setIsContactOpen] = useState(false);
+const [selectedService, setSelectedService] = useState("Web Design & Development");
+
+
+
+const [isThankYouOpen, setIsThankYouOpen] = useState(false);
+
+const [appointmentHour, setAppointmentHour] = useState("");
+const [appointmentMinute, setAppointmentMinute] = useState("");
+const [appointmentPeriod, setAppointmentPeriod] = useState("");
+
+const [isTimePickerOpen, setIsTimePickerOpen] = useState(false);
+
+
+useEffect(() => {
+  const handleKeyDown = (event: KeyboardEvent) => {
+    const target = event.target as HTMLElement;
+
+    const isTyping =
+      target.tagName === "INPUT" ||
+      target.tagName === "TEXTAREA" ||
+      target.tagName === "SELECT";
+
+    if (isTyping || isContactOpen) return;
+
+    if (event.key === "Enter") {
+      setServiceIndex((prev) => (prev + 1) % 5);
+    }
+  };
+
+  window.addEventListener("keydown", handleKeyDown);
+
+  return () => {
+    window.removeEventListener("keydown", handleKeyDown);
+  };
+}, [isContactOpen]);
+
+
 
 /* =========================================
 SCROLL STORY REFS
@@ -161,6 +206,9 @@ useLayoutEffect(() => {
   }
 
   const ctx = gsap.context(() => {
+
+
+
 
     /* =========================
        INITIAL STATE
@@ -394,6 +442,61 @@ useLayoutEffect(() => {
 
 }, []);
 
+
+useEffect(() => {
+  const section = document.querySelector<HTMLElement>(
+    ".services-glass-section"
+  );
+
+  if (!section) return;
+
+  const handleScroll = () => {
+    const rect = section.getBoundingClientRect();
+
+    const totalScroll =
+      section.offsetHeight - window.innerHeight;
+
+    if (totalScroll <= 0) return;
+
+    const passed = Math.min(
+      Math.max(-rect.top, 0),
+      totalScroll
+    );
+
+    const progress = passed / totalScroll;
+
+    let index = 0;
+
+    if (progress < 0.18) {
+      index = 0;
+    } else if (progress < 0.38) {
+      index = 1;
+    } else if (progress < 0.58) {
+      index = 2;
+    } else if (progress < 0.78) {
+      index = 3;
+    } else {
+      index = 4;
+    }
+
+    setServiceIndex(index);
+  };
+
+  window.addEventListener("scroll", handleScroll, {
+    passive: true,
+  });
+
+  handleScroll();
+
+  return () => {
+    window.removeEventListener(
+      "scroll",
+      handleScroll
+    );
+  };
+}, []);
+
+
 return (
  <main> 
 
@@ -533,23 +636,7 @@ return (
       </div>
 
 
-      <div className="hero-capabilities">
 
-        <span>PERFORMANCE</span>
-        <i>✦</i>
-
-        <span>SOCIAL</span>
-        <i>✦</i>
-
-        <span>SEO</span>
-        <i>✦</i>
-
-        <span>ADS</span>
-        <i>✦</i>
-
-        <span>WEB</span>
-
-      </div>
 
     </div>
 
@@ -999,409 +1086,392 @@ IMMERSIVE PROCESS STORY
 
   </div>
 
-</div>
-
-
-{/* =================================
-    FINAL MESSAGE
-================================= */}
-
-<div
-  ref={processFinalRef}
-  className="process-final"
->
-
-  <div className="process-final-infinity">
-    ∞
   </div>
-
-  <div>
-
-    <strong>
-      ONE CONNECTED DIGITAL SYSTEM.
-    </strong>
-
-    <p>
-      Strategy, creativity, technology and
-      performance working together.
-    </p>
 
   </div>
 
-</div>
+  <div ref={processFinalRef} className="process-final">
+    <div className="process-final-infinity">
+      ∞
+    </div>
 
-</div>
+    <div>
+      <strong>ONE BRAND · INFINITE POSSIBILITIES</strong>
+      <p>Strategy → Creative → Technology → Performance</p>
+    </div>
+  </div>
 
 </section>
 
 
-  {/* =====================================
-      TRUSTED CAPABILITIES
-  ===================================== */}
-
-  <section className="trusted-section">
-
-    <div className="trusted-label">
-      <span></span>
-
-      BUILT FOR AMBITIOUS BRANDS
-
-      <span></span>
-    </div>
 
 
-    <div className="trusted-track">
+{/* =====================================================
+    SERVICES — GLASS SCROLL EXPERIENCE
+===================================================== */}
 
-      <div className="trusted-items">
+<section className="services-glass-section" id="services">
 
-        <span>PERFORMANCE</span>
-        <i>✦</i>
+  <div className="services-glass-bg">
+    <span className="services-orb orb-one"></span>
+    <span className="services-orb orb-two"></span>
+    <span className="services-orb orb-three"></span>
+  </div>
 
-        <span>SOCIAL MEDIA</span>
-        <i>✦</i>
+  <div className="services-glass-stage">
 
-        <span>GOOGLE ADS</span>
-        <i>✦</i>
+    <div className="services-glass-panel">
 
-        <span>META ADS</span>
-        <i>✦</i>
-
-        <span>SEO</span>
-        <i>✦</i>
-
-        <span>WEB DEVELOPMENT</span>
-        <i>✦</i>
-
-        <span>BRANDING</span>
-        <i>✦</i>
-
-        <span>DIGITAL STRATEGY</span>
-        <i>✦</i>
-
+      <div className="services-panel-top">
+        <span>INFINITY DIGITAL MARKETING</span>
+        <span className="services-counter">
+              {String(serviceIndex + 1).padStart(2, "0")} / 05
+        </span>
       </div>
 
-    </div>
+      <div className="services-slides">
 
-  </section>
+        {/* 01 */}
+        <article
+  className={`service-glass-slide ${
+    serviceIndex === 0 ? "active" : ""
+  }`}
+>
 
+          <div className="service-slide-copy">
 
-  {/* =====================================
-      SERVICES
-  ===================================== */}
+            <span className="service-index">01 — WEB</span>
 
-  <section
-    className="services-interactive"
-    id="services"
-  >
-
-    <div className="services-intro">
-
-      <div className="services-kicker">
-        <span></span>
-        OUR CAPABILITIES
-      </div>
-
-
-      <h2>
-        One agency.
-        <br />
-        <em>
-          Infinite ways to grow.
-        </em>
-      </h2>
-
-
-      <p>
-        Strategy, creativity, technology and
-        performance connected together to
-        build brands that move forward.
-      </p>
-
-    </div>
-
-
-    <div className="services-list">
-
-
-      <a
-        href="#"
-        className="interactive-service"
-      >
-
-        <div className="service-left">
-
-          <span className="interactive-number">
-            01
-          </span>
-
-          <div>
-
-            <h3>
-              Performance Marketing
-            </h3>
+            <h2>
+              Web Design
+              <br />
+              <em>& Development</em>
+            </h2>
 
             <p>
-              Turn attention into measurable
-              business growth.
+              Fast, modern and conversion-focused websites built
+              around your business goals.
             </p>
+
+            <div className="service-pills">
+              <span>Business Website</span>
+              <span>E-commerce</span>
+              <span>Corporate</span>
+              <span>Landing Pages</span>
+              <span>Blog</span>
+              <span>Portfolio</span>
+            </div>
+
+            <div className="service-features">
+              <span>Responsive Design</span>
+              <span>UI / UX</span>
+              <span>Speed Optimization</span>
+              <span>Basic On-Page SEO</span>
+              <span>Lead Integration</span>
+              <span>3 Months Free Changes</span>
+            </div>
 
           </div>
 
-        </div>
+          <div className="service-slide-visual web-service-visual">
+  <img
+    src="/services/web.png"
+    alt="Web Design and Development"
+  />
+</div>
+
+        </article>
 
 
-        <div className="service-middle">
-          PERFORMANCE
-        </div>
+        {/* 02 */}
+        <article
+  className={`service-glass-slide ${
+    serviceIndex === 1 ? "active" : ""
+  }`}
+>
+
+          <div className="service-slide-copy">
+
+            <span className="service-index">02 — META</span>
+
+            <h2>
+              Meta Ads
+              <br />
+              <em>That Convert.</em>
+            </h2>
+
+            <p>
+              Facebook and Instagram campaigns designed to turn
+              attention into qualified leads and sales.
+            </p>
+
+            <div className="service-pills">
+              <span>Lead Generation</span>
+              <span>Sales Campaigns</span>
+              <span>Retargeting</span>
+              <span>Creative Testing</span>
+              <span>Audience Targeting</span>
+              <span>Pixel & Events</span>
+            </div>
+
+            <div className="service-features">
+              <span>Campaign Strategy</span>
+              <span>Audience Research</span>
+              <span>Creative Testing</span>
+              <span>Retargeting</span>
+              <span>Conversion Tracking</span>
+            </div>
+
+          </div>
+
+          <div className="service-slide-visual ads-service-visual">
+  <img
+    src="/services/meta.png"
+    alt="Meta Ads"
+  />
+</div>
+
+        </article>
 
 
-        <span className="interactive-arrow">
-          ↗
-        </span>
+        {/* 03 */}
+        <article
+  className={`service-glass-slide ${
+    serviceIndex === 2 ? "active" : ""
+  }`}
+>
 
-      </a>
+          <div className="service-slide-copy">
+
+            <span className="service-index">03 — GOOGLE</span>
+
+            <h2>
+              Google Ads
+              <br />
+              <em>At The Right Moment.</em>
+            </h2>
+
+            <p>
+              Reach people actively searching for your products
+              and services with intent-driven campaigns.
+            </p>
+
+            <div className="service-pills">
+              <span>Search Ads</span>
+              <span>Performance Max</span>
+              <span>Remarketing</span>
+              <span>Keyword Strategy</span>
+              <span>Conversion Tracking</span>
+            </div>
+
+            <div className="service-features">
+              <span>Keyword Research</span>
+              <span>Campaign Structure</span>
+              <span>Search Intent</span>
+              <span>Remarketing</span>
+              <span>Landing Page Optimization</span>
+            </div>
+
+          </div>
+
+          <div className="service-slide-visual google-service-visual">
+  <img
+    src="/services/google.png"
+    alt="Google Ads"
+  />
+</div>
+
+        </article>
 
 
-      <a
-        href="#"
-        className="interactive-service"
-      >
+        {/* 04 */}
+        <article
+  className={`service-glass-slide ${
+    serviceIndex === 3 ? "active" : ""
+  }`}
+>
 
-        <div className="service-left">
+          <div className="service-slide-copy">
 
-          <span className="interactive-number">
-            02
-          </span>
+            <span className="service-index">04 — SOCIAL</span>
 
-          <div>
-
-            <h3>
+            <h2>
               Social Media
-            </h3>
+              <br />
+              <em>People Remember.</em>
+            </h2>
 
             <p>
-              Build attention, community and a
-              stronger digital presence.
+              Content strategy, reels, creatives and consistent
+              social communication built around your brand.
             </p>
+
+            <div className="service-pills">
+              <span>Content Strategy</span>
+              <span>Reels</span>
+              <span>Static Content</span>
+              <span>Content Calendar</span>
+              <span>Captions</span>
+              <span>Growth Strategy</span>
+            </div>
+
+            <div className="service-features">
+              <span>Monthly Planning</span>
+              <span>Reel Concepts</span>
+              <span>Creative Direction</span>
+              <span>Caption Strategy</span>
+              <span>Growth Optimization</span>
+            </div>
 
           </div>
 
-        </div>
+          <div className="service-slide-visual social-service-visual">
+  <img
+    src="/services/social.png"
+    alt="Social Media Marketing"
+  />
+</div>
+
+        </article>
 
 
-        <div className="service-middle">
-          SOCIAL
-        </div>
+        {/* 05 */}
+        <article
+  className={`service-glass-slide ${
+    serviceIndex === 4 ? "active" : ""
+  }`}
+>
 
+          <div className="service-slide-copy">
 
-        <span className="interactive-arrow">
-          ↗
-        </span>
+            <span className="service-index">05 — PERFORMANCE</span>
 
-      </a>
-
-
-      <a
-        href="#"
-        className="interactive-service"
-      >
-
-        <div className="service-left">
-
-          <span className="interactive-number">
-            03
-          </span>
-
-          <div>
-
-            <h3>
-              Google & Meta Ads
-            </h3>
+            <h2>
+              Performance
+              <br />
+              <em>With Numbers Behind It.</em>
+            </h2>
 
             <p>
-              Reach the right audience with
-              performance-driven campaigns.
+              Funnels, tracking, A/B testing and optimization
+              built around measurable business growth.
             </p>
+
+            <div className="service-pills">
+              <span>Lead Generation</span>
+              <span>Funnels</span>
+              <span>A/B Testing</span>
+              <span>Retargeting</span>
+              <span>Scaling</span>
+              <span>CPL / CAC</span>
+            </div>
+
+            <div className="service-features">
+              <span>Conversion Tracking</span>
+              <span>Funnel Optimization</span>
+              <span>A/B Testing</span>
+              <span>Retargeting Systems</span>
+              <span>Budget Scaling</span>
+              <span>CPL & CAC Monitoring</span>
+            </div>
 
           </div>
 
-        </div>
+         <div className="service-slide-visual performance-service-visual">
+  <img
+    src="/services/performance.png"
+    alt="Performance Marketing"
+  />
+</div>
+
+        </article>
+
+      </div>
 
 
-        <div className="service-middle">
-          ADS
-        </div>
+      <div className="services-panel-bottom">
 
+        <div className="services-progress">
+  {[0, 1, 2, 3, 4].map((index) => (
+    <button
+      key={index}
+      type="button"
+      className={`progress-dot ${
+        serviceIndex === index ? "active" : ""
+      }`}
+      onClick={() => setServiceIndex(index)}
+      aria-label={`Go to service ${index + 1}`}
+    />
+  ))}
+</div>
 
-        <span className="interactive-arrow">
-          ↗
+        <span className="services-scroll-label">
+          SCROLL TO EXPLORE
         </span>
 
-      </a>
-
-
-      <a
-        href="#"
-        className="interactive-service"
-      >
-
-        <div className="service-left">
-
-          <span className="interactive-number">
-            04
-          </span>
-
-          <div>
-
-            <h3>
-              SEO & Organic Growth
-            </h3>
-
-            <p>
-              Build sustainable visibility and
-              long-term digital growth.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div className="service-middle">
-          SEO
-        </div>
-
-
-        <span className="interactive-arrow">
-          ↗
-        </span>
-
-      </a>
-
-
-      <a
-        href="#"
-        className="interactive-service"
-      >
-
-        <div className="service-left">
-
-          <span className="interactive-number">
-            05
-          </span>
-
-          <div>
-
-            <h3>
-              Web Development
-            </h3>
-
-            <p>
-              Create fast, responsive and
-              memorable digital experiences.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div className="service-middle">
-          WEB
-        </div>
-
-
-        <span className="interactive-arrow">
-          ↗
-        </span>
-
-      </a>
-
-
-      <a
-        href="#"
-        className="interactive-service"
-      >
-
-        <div className="service-left">
-
-          <span className="interactive-number">
-            06
-          </span>
-
-          <div>
-
-            <h3>
-              Branding & Digital Strategy
-            </h3>
-
-            <p>
-              Shape a clear identity and strategy
-              built for what's next.
-            </p>
-
-          </div>
-
-        </div>
-
-
-        <div className="service-middle">
-          BRAND
-        </div>
-
-
-        <span className="interactive-arrow">
-          ↗
-        </span>
-
-      </a>
+      </div>
 
     </div>
 
+  </div>
 
-    <div className="services-bottom">
-
-      <span>∞</span>
-
-      <p>
-        MULTIPLE DISCIPLINES · ONE CONNECTED SYSTEM
-      </p>
-
-    </div>
-
-  </section>
+</section>
 
 
-  {/* =====================================
-      FINAL CTA
-  ===================================== */}
 
-  <section
-    className="final-cta"
-    id="contact"
-  >
+{/* =====================================
+    TALK TO INFINITY
+===================================== */}
 
-    <span>
-      READY TO GO BEYOND?
+<section className="talk-infinity-section">
+  <div className="talk-infinity-content">
+    <span className="talk-infinity-kicker">
+      READY TO BUILD SOMETHING BIG?
     </span>
 
-
     <h2>
-      Let's build
+      Let’s Talk
       <br />
-      something <em>infinite.</em>
+      <em>Infinity.</em>
     </h2>
 
+    <p>
+      Tell us what you are building, what you need,
+      and where you want your business to go.
+    </p>
 
-    <a
-      href="https://wa.me/919871401223?text=Hey%20Infinity%2C%20I%20want%20your%20services."
-      target="_blank"
-      rel="noopener noreferrer"
+    <button
+      type="button"
+      className="talk-infinity-button"
+      onClick={() => {
+        setSelectedService(
+          serviceIndex === 0
+            ? "Web Design & Development"
+            : serviceIndex === 1
+            ? "Meta Ads"
+            : serviceIndex === 2
+            ? "Google Ads"
+            : serviceIndex === 3
+            ? "Social Media Marketing"
+            : "Performance Marketing"
+        );
+
+        setIsContactOpen(true);
+      }}
     >
-      Start a Conversation →
-    </a>
+      TALK TO INFINITY
+      <span>↗</span>
+    </button>
+  </div>
+</section>
 
-  </section>
+
+
+
+
+
+
+
 
 
   {/* =====================================
@@ -1431,6 +1501,159 @@ IMMERSIVE PROCESS STORY
     </small>
 
   </footer>
+
+
+
+{typeof document !== "undefined" &&
+  isContactOpen &&
+  createPortal(
+    <div
+      className="infinity-modal-backdrop"
+      onClick={() => setIsContactOpen(false)}
+    >
+      <div
+        className="infinity-contact-modal"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <button
+          type="button"
+          className="infinity-modal-close"
+          onClick={() => setIsContactOpen(false)}
+          aria-label="Close consultation form"
+        >
+          ×
+        </button>
+
+        <div className="modal-header">
+          <span>LET'S BUILD SOMETHING BIG</span>
+
+          <h3>
+            Talk to <em>Infinity.</em>
+          </h3>
+
+          <p>
+            Tell us what you are building, what you need,
+            and where you want your business to go.
+          </p>
+        </div>
+
+        <form
+          className="infinity-contact-form"
+          onSubmit={(event) => {
+            event.preventDefault();
+            alert("Thank you. We will contact you shortly.");
+            setIsContactOpen(false);
+          }}
+        >
+          <div className="modal-field">
+            <label>FULL NAME</label>
+
+            <input
+              type="text"
+              placeholder="Your full name"
+              required
+            />
+          </div>
+
+          <div className="modal-row">
+
+            <div className="modal-field">
+              <label>COUNTRY</label>
+
+              <select defaultValue="" required>
+                <option value="" disabled>
+                  Select country
+                </option>
+
+                <option>India</option>
+                <option>United States</option>
+                <option>United Kingdom</option>
+                <option>Canada</option>
+                <option>Australia</option>
+                <option>United Arab Emirates</option>
+                <option>Singapore</option>
+                <option>Germany</option>
+                <option>France</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div className="modal-field">
+              <label>SERVICE</label>
+
+              <select
+                value={selectedService}
+                onChange={(event) =>
+                  setSelectedService(event.target.value)
+                }
+                required
+              >
+                <option>Web Design & Development</option>
+                <option>Meta Ads</option>
+                <option>Google Ads</option>
+                <option>Social Media Marketing</option>
+                <option>Performance Marketing</option>
+                <option>Other Service</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div className="modal-row">
+
+            <div className="modal-field">
+              <label>APPOINTMENT DATE</label>
+
+              <input
+                type="date"
+                min={new Date().toISOString().split("T")[0]}
+                required
+              />
+            </div>
+
+            <div className="modal-field">
+              <label>APPOINTMENT TIME</label>
+
+              <input
+                type="time"
+                required
+              />
+            </div>
+
+          </div>
+
+          <div className="modal-field">
+            <label>MOBILE NUMBER</label>
+
+            <input
+              type="tel"
+              placeholder="+91 98765 43210"
+              required
+            />
+          </div>
+
+          <div className="modal-field">
+            <label>EMAIL</label>
+
+            <input
+              type="email"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="modal-submit"
+          >
+            REQUEST CONSULTATION
+          </button>
+        </form>
+      </div>
+    </div>,
+    document.body
+  )}
+
 
 </main>
 );
