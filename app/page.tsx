@@ -1443,21 +1443,9 @@ IMMERSIVE PROCESS STORY
     <button
       type="button"
       className="talk-infinity-button"
-      onClick={() => {
-        setSelectedService(
-          serviceIndex === 0
-            ? "Web Design & Development"
-            : serviceIndex === 1
-            ? "Meta Ads"
-            : serviceIndex === 2
-            ? "Google Ads"
-            : serviceIndex === 3
-            ? "Social Media Marketing"
-            : "Performance Marketing"
-        );
-
-        setIsContactOpen(true);
-      }}
+    onClick={() => {
+  setIsContactOpen(true);
+}}
     >
       TALK TO INFINITY
       <span>↗</span>
@@ -1508,63 +1496,221 @@ IMMERSIVE PROCESS STORY
   isContactOpen &&
   createPortal(
     <div
-      className="infinity-modal-backdrop"
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 2147483647,
+        background: "rgba(0,0,0,0.78)",
+        backdropFilter: "blur(18px)",
+        WebkitBackdropFilter: "blur(18px)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "24px",
+      }}
       onClick={() => setIsContactOpen(false)}
     >
       <div
-        className="infinity-contact-modal"
+        style={{
+          position: "relative",
+          width: "min(900px, 94vw)",
+          maxHeight: "90vh",
+          overflowY: "auto",
+          padding: "40px",
+          borderRadius: "28px",
+          background:
+            "linear-gradient(145deg, rgba(20,25,46,.98), rgba(7,11,24,.99))",
+          border: "1px solid rgba(117,130,255,.28)",
+          boxShadow:
+            "0 40px 100px rgba(0,0,0,.65), 0 0 60px rgba(95,230,255,.08)",
+          color: "#fff",
+        }}
         onClick={(event) => event.stopPropagation()}
       >
+
+        {/* CLOSE */}
         <button
           type="button"
-          className="infinity-modal-close"
           onClick={() => setIsContactOpen(false)}
           aria-label="Close consultation form"
+          style={{
+            position: "absolute",
+            top: "18px",
+            right: "18px",
+            width: "40px",
+            height: "40px",
+            border: "0",
+            borderRadius: "50%",
+            background: "rgba(255,255,255,.08)",
+            color: "#fff",
+            fontSize: "24px",
+            cursor: "pointer",
+          }}
         >
           ×
         </button>
 
-        <div className="modal-header">
-          <span>LET'S BUILD SOMETHING BIG</span>
+        {/* HEADER */}
+        <div style={{ marginBottom: "28px" }}>
+          <span
+            style={{
+              display: "block",
+              color: "#62e7ff",
+              fontSize: "11px",
+              fontWeight: 700,
+              letterSpacing: ".2em",
+              marginBottom: "12px",
+            }}
+          >
+            INFINITY DIGITAL MARKETING
+          </span>
 
-          <h3>
-            Talk to <em>Infinity.</em>
-          </h3>
+          <h2
+            style={{
+              margin: 0,
+              fontSize: "clamp(36px, 5vw, 60px)",
+              lineHeight: ".95",
+              letterSpacing: "-.04em",
+            }}
+          >
+            Let’s build something
+            <br />
+            <span
+              style={{
+                background:
+                  "linear-gradient(90deg,#62e7ff,#7780ff,#ca68ff)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+              }}
+            >
+              extraordinary.
+            </span>
+          </h2>
 
-          <p>
-            Tell us what you are building, what you need,
-            and where you want your business to go.
+          <p
+            style={{
+              marginTop: "14px",
+              color: "rgba(255,255,255,.58)",
+            }}
+          >
+            Share a few details and we’ll get back to you.
           </p>
         </div>
 
+        {/* FORM */}
         <form
-          className="infinity-contact-form"
           onSubmit={(event) => {
             event.preventDefault();
             alert("Thank you. We will contact you shortly.");
             setIsContactOpen(false);
           }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+          }}
         >
-          <div className="modal-field">
-            <label>FULL NAME</label>
+
+          {/* NAME */}
+          <div>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "7px",
+                color: "rgba(255,255,255,.55)",
+                fontSize: "10px",
+                letterSpacing: ".14em",
+              }}
+            >
+              FULL NAME
+            </label>
 
             <input
               type="text"
               placeholder="Your full name"
               required
+              style={{
+                width: "100%",
+                minHeight: "48px",
+                padding: "12px 14px",
+                borderRadius: "13px",
+                border: "1px solid rgba(255,255,255,.1)",
+                background: "rgba(255,255,255,.05)",
+                color: "#fff",
+                outline: "none",
+              }}
             />
           </div>
 
-          <div className="modal-row">
+          {/* MOBILE + COUNTRY */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "14px",
+            }}
+          >
+            <div>
+              <label
+                style={{
+                  display: "block",
+                  marginBottom: "7px",
+                  color: "rgba(255,255,255,.55)",
+                  fontSize: "10px",
+                  letterSpacing: ".14em",
+                }}
+              >
+                MOBILE NUMBER
+              </label>
 
-            <div className="modal-field">
-              <label>COUNTRY</label>
+              <input
+                type="tel"
+                placeholder="+91 98765 43210"
+                required
+                style={{
+                  width: "100%",
+                  minHeight: "48px",
+                  padding: "12px 14px",
+                  borderRadius: "13px",
+                  border: "1px solid rgba(255,255,255,.1)",
+                  background: "rgba(255,255,255,.05)",
+                  color: "#fff",
+                  outline: "none",
+                }}
+              />
+            </div>
 
-              <select defaultValue="" required>
+            <div>
+              <label
+                style={{
+                  display: "block",
+                  marginBottom: "7px",
+                  color: "rgba(255,255,255,.55)",
+                  fontSize: "10px",
+                  letterSpacing: ".14em",
+                }}
+              >
+                COUNTRY
+              </label>
+
+              <select
+                defaultValue=""
+                required
+                style={{
+                  width: "100%",
+                  minHeight: "48px",
+                  padding: "12px 14px",
+                  borderRadius: "13px",
+                  border: "1px solid rgba(255,255,255,.1)",
+                  background: "#11182f",
+                  color: "#fff",
+                  outline: "none",
+                }}
+              >
                 <option value="" disabled>
                   Select country
                 </option>
-
                 <option>India</option>
                 <option>United States</option>
                 <option>United Kingdom</option>
@@ -1577,9 +1723,28 @@ IMMERSIVE PROCESS STORY
                 <option>Other</option>
               </select>
             </div>
+          </div>
 
-            <div className="modal-field">
-              <label>SERVICE</label>
+          {/* SERVICE + OTHER */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "14px",
+            }}
+          >
+            <div>
+              <label
+                style={{
+                  display: "block",
+                  marginBottom: "7px",
+                  color: "rgba(255,255,255,.55)",
+                  fontSize: "10px",
+                  letterSpacing: ".14em",
+                }}
+              >
+                SERVICE
+              </label>
 
               <select
                 value={selectedService}
@@ -1587,6 +1752,16 @@ IMMERSIVE PROCESS STORY
                   setSelectedService(event.target.value)
                 }
                 required
+                style={{
+                  width: "100%",
+                  minHeight: "48px",
+                  padding: "12px 14px",
+                  borderRadius: "13px",
+                  border: "1px solid rgba(255,255,255,.1)",
+                  background: "#11182f",
+                  color: "#fff",
+                  outline: "none",
+                }}
               >
                 <option>Web Design & Development</option>
                 <option>Meta Ads</option>
@@ -1597,63 +1772,391 @@ IMMERSIVE PROCESS STORY
               </select>
             </div>
 
-          </div>
-
-          <div className="modal-row">
-
-            <div className="modal-field">
-              <label>APPOINTMENT DATE</label>
-
-              <input
-                type="date"
-                min={new Date().toISOString().split("T")[0]}
-                required
-              />
-            </div>
-
-            <div className="modal-field">
-              <label>APPOINTMENT TIME</label>
+            <div>
+              <label
+                style={{
+                  display: "block",
+                  marginBottom: "7px",
+                  color: "rgba(255,255,255,.55)",
+                  fontSize: "10px",
+                  letterSpacing: ".14em",
+                }}
+              >
+                OTHER SERVICE
+              </label>
 
               <input
-                type="time"
-                required
+                type="text"
+                placeholder="Enter if needed"
+                style={{
+                  width: "100%",
+                  minHeight: "48px",
+                  padding: "12px 14px",
+                  borderRadius: "13px",
+                  border: "1px solid rgba(255,255,255,.1)",
+                  background: "rgba(255,255,255,.05)",
+                  color: "#fff",
+                  outline: "none",
+                }}
               />
             </div>
-
           </div>
 
-          <div className="modal-field">
-            <label>MOBILE NUMBER</label>
+          {/* DATE + TIME */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "14px",
+            }}
+          >
+            <div>
+              <label
+                style={{
+                  display: "block",
+                  marginBottom: "7px",
+                  color: "rgba(255,255,255,.55)",
+                  fontSize: "10px",
+                  letterSpacing: ".14em",
+                }}
+              >
+                APPOINTMENT DATE
+              </label>
 
-            <input
-              type="tel"
-              placeholder="+91 98765 43210"
-              required
-            />
+             <input
+  type="date"
+  min={new Date().toISOString().split("T")[0]}
+  required
+  style={{
+    width: "100%",
+    minHeight: "52px",
+    padding: "12px 14px",
+    borderRadius: "13px",
+    border: "1px solid rgba(255,255,255,.12)",
+    background: "#11182f",
+    color: "#fff",
+    outline: "none",
+    colorScheme: "dark",
+    fontFamily: "inherit",
+    cursor: "pointer",
+  }}
+/>
+            </div>
+
+            <div>
+              <label
+    style={{
+      display: "block",
+      marginBottom: "7px",
+      color: "rgba(255,255,255,.55)",
+      fontSize: "10px",
+      letterSpacing: ".14em",
+    }}
+  >
+    APPOINTMENT TIME
+  </label>
+
+  <button
+    type="button"
+    onClick={() => setIsTimePickerOpen(true)}
+    style={{
+      width: "100%",
+      minHeight: "52px",
+      padding: "12px 14px",
+      borderRadius: "13px",
+      border: "1px solid rgba(255,255,255,.12)",
+      background: "#11182f",
+      color: "#fff",
+      outline: "none",
+      fontFamily: "inherit",
+      cursor: "pointer",
+      textAlign: "left",
+    }}
+  >
+    {appointmentHour
+      ? `${appointmentHour}:${appointmentMinute} ${appointmentPeriod}`
+      : "Select appointment time"}
+  </button>
+
+  {isTimePickerOpen && (
+    <div
+      style={{
+        position: "absolute",
+        top: "calc(100% + 10px)",
+        right: 0,
+        width: "330px",
+        maxWidth: "90vw",
+        padding: "22px",
+        borderRadius: "24px",
+        background: "#0d1429",
+        border: "1px solid rgba(95,230,255,.2)",
+        boxShadow: "0 25px 70px rgba(0,0,0,.55)",
+        zIndex: 999999,
+      }}
+    >
+      {/* TITLE */}
+      <div
+        style={{
+          textAlign: "center",
+          marginBottom: "16px",
+          color: "#fff",
+          fontWeight: 700,
+        }}
+      >
+        Select Time
+      </div>
+
+      {/* CLOCK */}
+      <div
+        style={{
+          position: "relative",
+          width: "250px",
+          height: "250px",
+          margin: "0 auto 20px",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle, #182343 0%, #0a1021 72%)",
+          border: "1px solid rgba(95,230,255,.2)",
+          boxShadow:
+            "inset 0 0 35px rgba(95,230,255,.06), 0 0 30px rgba(95,230,255,.08)",
+        }}
+      >
+        {Array.from({ length: 12 }, (_, i) => {
+          const hour = String(i + 1).padStart(2, "0");
+          const angle = i * 30;
+          const radius = 92;
+
+          const x =
+            Math.sin((angle * Math.PI) / 180) * radius;
+
+          const y =
+            -Math.cos((angle * Math.PI) / 180) * radius;
+
+          const active =
+            appointmentHour === hour;
+
+          return (
+            <button
+              key={hour}
+              type="button"
+              onClick={() => {
+                setAppointmentHour(hour);
+                setAppointmentMinute("");
+              }}
+              style={{
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
+                width: "34px",
+                height: "34px",
+                borderRadius: "50%",
+                border: "0",
+                background: active
+                  ? "linear-gradient(135deg,#5fe6ff,#8173ff)"
+                  : "transparent",
+                color: "#fff",
+                fontSize: "13px",
+                fontWeight: active ? 800 : 500,
+                cursor: "pointer",
+              }}
+            >
+              {i + 1}
+            </button>
+          );
+        })}
+
+        {/* CENTER */}
+        <div
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "12px",
+            height: "12px",
+            borderRadius: "50%",
+            background: "#5fe6ff",
+            boxShadow: "0 0 16px #5fe6ff",
+          }}
+        />
+      </div>
+
+      {/* MINUTES */}
+      <div
+        style={{
+          display: "flex",
+          gap: "7px",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          marginBottom: "18px",
+        }}
+      >
+        {[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55].map(
+          (minute) => {
+            const value = String(minute).padStart(2, "0");
+            const active = appointmentMinute === value;
+
+            return (
+              <button
+                key={value}
+                type="button"
+                disabled={!appointmentHour}
+                onClick={() => setAppointmentMinute(value)}
+                style={{
+                  width: "42px",
+                  height: "34px",
+                  borderRadius: "10px",
+                  border: "1px solid rgba(255,255,255,.1)",
+                  background: active
+                    ? "linear-gradient(90deg,#5969ff,#8a67ff)"
+                    : "rgba(255,255,255,.05)",
+                  color: "#fff",
+                  cursor: appointmentHour
+                    ? "pointer"
+                    : "not-allowed",
+                  opacity: appointmentHour ? 1 : 0.4,
+                  fontSize: "11px",
+                }}
+              >
+                {value}
+              </button>
+            );
+          }
+        )}
+      </div>
+
+      {/* AM / PM */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "10px",
+          marginBottom: "14px",
+        }}
+      >
+        {["AM", "PM"].map((period) => (
+          <button
+            key={period}
+            type="button"
+            disabled={!appointmentMinute}
+            onClick={() => {
+              setAppointmentPeriod(period);
+            }}
+            style={{
+              minHeight: "42px",
+              borderRadius: "12px",
+              border: "1px solid rgba(255,255,255,.1)",
+              background:
+                appointmentPeriod === period
+                  ? "linear-gradient(90deg,#5969ff,#8a67ff)"
+                  : "rgba(255,255,255,.05)",
+              color: "#fff",
+              cursor: appointmentMinute
+                ? "pointer"
+                : "not-allowed",
+              opacity: appointmentMinute ? 1 : 0.4,
+              fontWeight: 700,
+            }}
+          >
+            {period}
+          </button>
+        ))}
+      </div>
+
+      {/* DONE */}
+      <button
+        type="button"
+        disabled={
+          !appointmentHour ||
+          !appointmentMinute ||
+          !appointmentPeriod
+        }
+        onClick={() => setIsTimePickerOpen(false)}
+        style={{
+          width: "100%",
+          minHeight: "44px",
+          border: "0",
+          borderRadius: "12px",
+          background:
+            appointmentHour &&
+            appointmentMinute &&
+            appointmentPeriod
+              ? "linear-gradient(90deg,#5fe6ff,#8173ff,#a855f7)"
+              : "rgba(255,255,255,.08)",
+          color: "#fff",
+          fontWeight: 700,
+          cursor:
+            appointmentHour &&
+            appointmentMinute &&
+            appointmentPeriod
+              ? "pointer"
+              : "not-allowed",
+        }}
+      >
+        DONE
+      </button>
+    </div>
+  )}
+</div>
           </div>
 
-          <div className="modal-field">
-            <label>EMAIL</label>
+          {/* EMAIL */}
+          <div>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "7px",
+                color: "rgba(255,255,255,.55)",
+                fontSize: "10px",
+                letterSpacing: ".14em",
+              }}
+            >
+              EMAIL
+            </label>
 
             <input
               type="email"
               placeholder="you@example.com"
               required
+              style={{
+                width: "100%",
+                minHeight: "48px",
+                padding: "12px 14px",
+                borderRadius: "13px",
+                border: "1px solid rgba(255,255,255,.1)",
+                background: "rgba(255,255,255,.05)",
+                color: "#fff",
+                outline: "none",
+              }}
             />
           </div>
 
+          {/* SUBMIT */}
           <button
             type="submit"
-            className="modal-submit"
+            style={{
+              minHeight: "52px",
+              marginTop: "4px",
+              border: "0",
+              borderRadius: "14px",
+              color: "#fff",
+              fontFamily: "inherit",
+              fontWeight: 700,
+              cursor: "pointer",
+              background:
+                "linear-gradient(90deg,#5969ff,#8a67ff,#c967ff)",
+              boxShadow: "0 15px 35px rgba(100,100,255,.22)",
+            }}
           >
-            REQUEST CONSULTATION
+            REQUEST CONSULTATION →
           </button>
+
         </form>
       </div>
     </div>,
     document.body
   )}
-
 
 </main>
 );
