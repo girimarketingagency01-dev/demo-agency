@@ -43,6 +43,39 @@ const [isTimePickerOpen, setIsTimePickerOpen] = useState(false);
 
 
 useEffect(() => {
+  if (isContactOpen) {
+    document.body.classList.add("form-open");
+  } else {
+    document.body.classList.remove("form-open");
+  }
+
+  return () => {
+    document.body.classList.remove("form-open");
+  };
+}, [isContactOpen]);
+
+useEffect(() => {
+  const handleFormMouseMove = (event: MouseEvent) => {
+    if (!isContactOpen) return;
+
+    setMouse({
+      x: event.clientX,
+      y: event.clientY,
+    });
+  };
+
+  window.addEventListener("mousemove", handleFormMouseMove);
+
+  return () => {
+    window.removeEventListener(
+      "mousemove",
+      handleFormMouseMove
+    );
+  };
+}, [isContactOpen]);
+
+
+useEffect(() => {
   const handleKeyDown = (event: KeyboardEvent) => {
     const target = event.target as HTMLElement;
 
@@ -1511,6 +1544,15 @@ IMMERSIVE PROCESS STORY
       onClick={() => setIsContactOpen(false)}
     >
       <div
+  className="form-infinity-cursor"
+  style={{
+    left: mouse.x,
+    top: mouse.y,
+  }}
+>
+  ∞
+</div>
+      <div
         style={{
           position: "relative",
           width: "min(900px, 94vw)",
@@ -1878,21 +1920,60 @@ IMMERSIVE PROCESS STORY
       : "Select appointment time"}
   </button>
 
-  {isTimePickerOpen && (
+{isTimePickerOpen && (
+  <>
+    <div
+      onClick={() => setIsTimePickerOpen(false)}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 2147483646,
+        background: "rgba(0,0,0,.15)",
+      }}
+    />
+
     <div
       style={{
-        position: "absolute",
-        top: "calc(100% + 10px)",
-        right: 0,
+        position: "fixed",
+        left: "50%",
+        top: "50%",
+        transform: "translate(-50%, -50%)",
         width: "330px",
-        maxWidth: "90vw",
+        maxWidth: "calc(100vw - 32px)",
         padding: "22px",
         borderRadius: "24px",
         background: "#0d1429",
-        border: "1px solid rgba(95,230,255,.2)",
-        boxShadow: "0 25px 70px rgba(0,0,0,.55)",
-        zIndex: 999999,
+        border: "1px solid rgba(95,230,255,.25)",
+        boxShadow:
+          "0 30px 100px rgba(0,0,0,.75), 0 0 50px rgba(95,230,255,.10)",
+        zIndex: 2147483647,
       }}
+    >
+
+      {/* tumhara existing circular clock,
+          minutes, AM/PM aur DONE yahin rahega */}
+
+    </div>
+  </>
+)}
+
+  {isTimePickerOpen && (
+    <div
+      style={{
+  position: "fixed",
+  left: "50%",
+  top: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "330px",
+  maxWidth: "calc(100vw - 32px)",
+  padding: "22px",
+  borderRadius: "24px",
+  background: "#0d1429",
+  border: "1px solid rgba(95,230,255,.25)",
+  boxShadow:
+    "0 30px 100px rgba(0,0,0,.75), 0 0 50px rgba(95,230,255,.10)",
+  zIndex: 2147483647,
+}}
     >
       {/* TITLE */}
       <div

@@ -53,7 +53,7 @@ CUSTOM INFINITY CURSOR
 .infinity-cursor {
 position: fixed;
 
-z-index: 99999;
+z-index: 2147483648 !important;
 
 width: 32px;
 height: 32px;
@@ -9360,3 +9360,51 @@ scale(0.62);
   }
 
 }
+
+
+
+/* =========================================
+   FORM CUSTOM INFINITY CURSOR
+========================================= */
+
+.form-infinity-cursor {
+  position: fixed;
+  z-index: 2147483648;
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1;
+
+  background: linear-gradient(
+    135deg,
+    #00eaff 0%,
+    #168cff 45%,
+    #9b4dff 100%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  filter:
+    drop-shadow(0 0 8px rgba(0,229,255,.95))
+    drop-shadow(0 0 18px rgba(139,70,255,.8));
+
+  pointer-events: none;
+}
+
+body.form-open,
+body.form-open * {
+  cursor: none !important;
+}
+
