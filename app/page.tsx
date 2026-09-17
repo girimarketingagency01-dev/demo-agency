@@ -119,8 +119,7 @@ const introLineThreeRef =
 const processStageRefs =
   useRef<(HTMLDivElement | null)[]>([]);
 
-const processFinalRef =
-  useRef<HTMLDivElement | null>(null);
+
 
 const stages =
   processStageRefs.current.filter(Boolean) as HTMLDivElement[];  
@@ -225,18 +224,17 @@ useLayoutEffect(() => {
     Boolean
   ) as HTMLDivElement[];
 
-  const finalMessage = processFinalRef.current;
+  
 
-  if (
-    !section ||
-    !lineOne ||
-    !lineTwo ||
-    !lineThree ||
-    stages.length !== 4 ||
-    !finalMessage
-  ) {
-    return;
-  }
+if (
+  !section ||
+  !lineOne ||
+  !lineTwo ||
+  !lineThree ||
+  stages.length !== 4
+) {
+  return;
+}
 
   const ctx = gsap.context(() => {
 
@@ -275,13 +273,7 @@ useLayoutEffect(() => {
       filter: "blur(10px)",
     });
 
-    gsap.set(finalMessage, {
-      opacity: 0,
-      y: 60,
-      scale: 0.9,
-      filter: "blur(8px)",
-    });
-
+   
 
     /* =========================
        TIMELINE
@@ -291,7 +283,7 @@ useLayoutEffect(() => {
       scrollTrigger: {
         trigger: section,
         start: "top top",
-        end: "+=5600",
+        end: "+=4200",
         pin: true,
         scrub: 1.15,
         anticipatePin: 1,
@@ -458,14 +450,7 @@ useLayoutEffect(() => {
        FINAL
     ========================= */
 
-    tl.to(finalMessage, {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      filter: "blur(0px)",
-      duration: 1.2,
-      ease: "power3.out",
-    }, "-=0.2");
+   
 
   }, section);
 
@@ -549,64 +534,7 @@ return (
   </div>
 
 
-  {/* =====================================
-      NAVBAR
-  ===================================== */}
-
-  <header className="navbar">
-
-    <div className="logo">
-
-      <img
-        src="/logo.jpg"
-        alt="Infinity Digital Marketing"
-        style={{
-          width: "48px",
-          height: "48px",
-          objectFit: "contain",
-        }}
-      />
-
-      <div>
-        <strong>INFINITY</strong>
-
-        <small>
-          DIGITAL MARKETING
-        </small>
-      </div>
-
-    </div>
-
-
-    <nav>
-      <a href="#services">
-        Services
-      </a>
-
-      <a href="#work">
-        Work
-      </a>
-
-      <a href="#about">
-        About
-      </a>
-
-      <a href="#insights">
-        Insights
-      </a>
-    </nav>
-
-
-    <a
-      href="https://wa.me/919871401223?text=Hey%20Infinity%2C%20I%20want%20your%20services."
-      target="_blank"
-      rel="noopener noreferrer"
-      className="nav-button"
-    >
-      Let's Talk →
-    </a>
-
-  </header>
+  
 
 
 
@@ -651,13 +579,11 @@ return (
       <div className="hero-buttons">
 
         <a
-          href="https://wa.me/919871401223?text=Hey%20Infinity%2C%20I%20want%20your%20services."
-          target="_blank"
-          rel="noopener noreferrer"
-          className="primary-button"
-        >
-          Start a Conversation →
-        </a>
+  href="/contact"
+  className="primary-button"
+>
+  Start a Conversation →
+</a>
 
         <a
           href="#services"
@@ -883,7 +809,7 @@ IMMERSIVE PROCESS STORY
 
 
     <div className="process-visual">
-
+ 
       <div className="process-image-glow"></div>
 
       <div className="process-image-wrap">
@@ -1097,7 +1023,7 @@ IMMERSIVE PROCESS STORY
     </div>
 
 
-    <div className="process-copy">
+    <div className="process-copy performance-copy">
 
       <small>04</small>
 
@@ -1123,18 +1049,85 @@ IMMERSIVE PROCESS STORY
 
   </div>
 
-  <div ref={processFinalRef} className="process-final">
-    <div className="process-final-infinity">
-      ∞
-    </div>
-
-    <div>
-      <strong>ONE BRAND · INFINITE POSSIBILITIES</strong>
-      <p>Strategy → Creative → Technology → Performance</p>
-    </div>
-  </div>
+  
 
 </section>
+
+
+
+{/* =====================================
+    FOUNDER SECTION
+===================================== */}
+
+<section
+  id="about"
+  className="founder-section"
+>
+
+  <div className="founder-section-inner">
+
+    {/* LEFT — FOUNDER IMAGE */}
+    <div className="founder-image-wrap">
+
+      <div className="founder-image-glow"></div>
+
+      <div className="founder-image-frame">
+
+        <img
+          src="/founder.png"
+          alt="Founder - Infinity Digital Marketing"
+        />
+
+      </div>
+
+      <div className="founder-image-tag">
+        <span>∞</span>
+        FOUNDER
+      </div>
+
+    </div>
+
+
+    {/* RIGHT — FOUNDER DETAILS */}
+    <div className="founder-copy">
+
+      <span className="founder-kicker">
+        THE PERSON BEHIND INFINITY
+      </span>
+
+      <h2>
+        Building brands
+        <br />
+        <em>with purpose.</em>
+      </h2>
+
+      <p className="founder-intro">
+        Infinity Digital Marketing was built with a simple belief:
+        great digital marketing is not about doing more —
+        it is about doing what actually moves a business forward.
+      </p>
+
+      <p>
+        From strategy and creative thinking to technology and
+        performance, the focus is on creating digital systems
+        that help brands communicate better, connect with the
+        right audience and grow with confidence.
+      </p>
+
+      <div className="founder-signature">
+        <strong>FOUNDER</strong>
+        <span>Infinity Digital Marketing</span>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
+</section>
+
 
 
 
@@ -1469,20 +1462,13 @@ IMMERSIVE PROCESS STORY
     </h2>
 
     <p>
-      Tell us what you are building, what you need,
-      and where you want your business to go.
+       
+       
     </p>
 
-    <button
-      type="button"
-      className="talk-infinity-button"
-    onClick={() => {
-  setIsContactOpen(true);
-}}
-    >
-      TALK TO INFINITY
-      <span>↗</span>
-    </button>
+    <a href="/contact" className="primary-button">
+  TALK TO INFINITY →
+</a>
   </div>
 </section>
 
@@ -1495,749 +1481,11 @@ IMMERSIVE PROCESS STORY
 
 
 
-  {/* =====================================
-      FOOTER
-  ===================================== */}
-
-  <footer>
-
-    <div className="footer-logo">
-
-      <span>∞</span>
-
-      <strong>
-        INFINITY
-      </strong>
-
-    </div>
-
-
-    <p>
-      Digital Marketing · Performance · Creative · Web
-    </p>
-
-
-    <small>
-      © 2026 Infinity Digital Marketing
-    </small>
-
-  </footer>
 
 
 
-{typeof document !== "undefined" &&
-  isContactOpen &&
-  createPortal(
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 2147483647,
-        background: "rgba(0,0,0,0.78)",
-        backdropFilter: "blur(18px)",
-        WebkitBackdropFilter: "blur(18px)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "24px",
-      }}
-      onClick={() => setIsContactOpen(false)}
-    >
-      <div
-  className="form-infinity-cursor"
-  style={{
-    left: mouse.x,
-    top: mouse.y,
-  }}
->
-  ∞
-</div>
-      <div
-        style={{
-          position: "relative",
-          width: "min(900px, 94vw)",
-          maxHeight: "90vh",
-          overflowY: "auto",
-          padding: "40px",
-          borderRadius: "28px",
-          background:
-            "linear-gradient(145deg, rgba(20,25,46,.98), rgba(7,11,24,.99))",
-          border: "1px solid rgba(117,130,255,.28)",
-          boxShadow:
-            "0 40px 100px rgba(0,0,0,.65), 0 0 60px rgba(95,230,255,.08)",
-          color: "#fff",
-        }}
-        onClick={(event) => event.stopPropagation()}
-      >
 
-        {/* CLOSE */}
-        <button
-          type="button"
-          onClick={() => setIsContactOpen(false)}
-          aria-label="Close consultation form"
-          style={{
-            position: "absolute",
-            top: "18px",
-            right: "18px",
-            width: "40px",
-            height: "40px",
-            border: "0",
-            borderRadius: "50%",
-            background: "rgba(255,255,255,.08)",
-            color: "#fff",
-            fontSize: "24px",
-            cursor: "pointer",
-          }}
-        >
-          ×
-        </button>
 
-        {/* HEADER */}
-        <div style={{ marginBottom: "28px" }}>
-          <span
-            style={{
-              display: "block",
-              color: "#62e7ff",
-              fontSize: "11px",
-              fontWeight: 700,
-              letterSpacing: ".2em",
-              marginBottom: "12px",
-            }}
-          >
-            INFINITY DIGITAL MARKETING
-          </span>
-
-          <h2
-            style={{
-              margin: 0,
-              fontSize: "clamp(36px, 5vw, 60px)",
-              lineHeight: ".95",
-              letterSpacing: "-.04em",
-            }}
-          >
-            Let’s build something
-            <br />
-            <span
-              style={{
-                background:
-                  "linear-gradient(90deg,#62e7ff,#7780ff,#ca68ff)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-              }}
-            >
-              extraordinary.
-            </span>
-          </h2>
-
-          <p
-            style={{
-              marginTop: "14px",
-              color: "rgba(255,255,255,.58)",
-            }}
-          >
-            Share a few details and we’ll get back to you.
-          </p>
-        </div>
-
-        {/* FORM */}
-        <form
-          onSubmit={(event) => {
-            event.preventDefault();
-            alert("Thank you. We will contact you shortly.");
-            setIsContactOpen(false);
-          }}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "16px",
-          }}
-        >
-
-          {/* NAME */}
-          <div>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "7px",
-                color: "rgba(255,255,255,.55)",
-                fontSize: "10px",
-                letterSpacing: ".14em",
-              }}
-            >
-              FULL NAME
-            </label>
-
-            <input
-              type="text"
-              placeholder="Your Full Name"
-              required
-              style={{
-                width: "100%",
-                minHeight: "48px",
-                padding: "12px 14px",
-                borderRadius: "13px",
-                border: "1px solid rgba(255,255,255,.1)",
-                background: "rgba(255,255,255,.05)",
-                color: "#fff",
-                outline: "none",
-              }}
-            />
-          </div>
-
-          {/* MOBILE + COUNTRY */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "14px",
-            }}
-          >
-            <div>
-              <label
-                style={{
-                  display: "block",
-                  marginBottom: "7px",
-                  color: "rgba(255,255,255,.55)",
-                  fontSize: "10px",
-                  letterSpacing: ".14em",
-                }}
-              >
-                MOBILE NUMBER
-              </label>
-
-              <input
-                type="tel"
-                placeholder="+91 80767 28103"
-                required
-                style={{
-                  width: "100%",
-                  minHeight: "48px",
-                  padding: "12px 14px",
-                  borderRadius: "13px",
-                  border: "1px solid rgba(255,255,255,.1)",
-                  background: "rgba(255,255,255,.05)",
-                  color: "#fff",
-                  outline: "none",
-                }}
-              />
-            </div>
-
-            <div>
-              <label
-                style={{
-                  display: "block",
-                  marginBottom: "7px",
-                  color: "rgba(255,255,255,.55)",
-                  fontSize: "10px",
-                  letterSpacing: ".14em",
-                }}
-              >
-                COUNTRY
-              </label>
-
-              <select
-                defaultValue=""
-                required
-                style={{
-                  width: "100%",
-                  minHeight: "48px",
-                  padding: "12px 14px",
-                  borderRadius: "13px",
-                  border: "1px solid rgba(255,255,255,.1)",
-                  background: "#11182f",
-                  color: "#fff",
-                  outline: "none",
-                }}
-              >
-                <option value="" disabled>
-                  Select country
-                </option>
-                <option>India</option>
-                <option>United States</option>
-                <option>United Kingdom</option>
-                <option>Canada</option>
-                <option>Australia</option>
-                <option>United Arab Emirates</option>
-                <option>Singapore</option>
-                <option>Germany</option>
-                <option>France</option>
-                <option>Other</option>
-              </select>
-            </div>
-          </div>
-
-          {/* SERVICE + OTHER */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "14px",
-            }}
-          >
-            <div>
-              <label
-                style={{
-                  display: "block",
-                  marginBottom: "7px",
-                  color: "rgba(255,255,255,.55)",
-                  fontSize: "10px",
-                  letterSpacing: ".14em",
-                }}
-              >
-                SERVICE
-              </label>
-
-              <select
-                value={selectedService}
-                onChange={(event) =>
-                  setSelectedService(event.target.value)
-                }
-                required
-                style={{
-                  width: "100%",
-                  minHeight: "48px",
-                  padding: "12px 14px",
-                  borderRadius: "13px",
-                  border: "1px solid rgba(255,255,255,.1)",
-                  background: "#11182f",
-                  color: "#fff",
-                  outline: "none",
-                }}
-              >
-                <option>Web Design & Development</option>
-                <option>Meta Ads</option>
-                <option>Google Ads</option>
-                <option>Social Media Marketing</option>
-                <option>Performance Marketing</option>
-                <option>Other Service</option>
-              </select>
-            </div>
-
-            <div>
-              <label
-                style={{
-                  display: "block",
-                  marginBottom: "7px",
-                  color: "rgba(255,255,255,.55)",
-                  fontSize: "10px",
-                  letterSpacing: ".14em",
-                }}
-              >
-                OTHER SERVICE
-              </label>
-
-              <input
-                type="text"
-                placeholder="Enter if needed"
-                style={{
-                  width: "100%",
-                  minHeight: "48px",
-                  padding: "12px 14px",
-                  borderRadius: "13px",
-                  border: "1px solid rgba(255,255,255,.1)",
-                  background: "rgba(255,255,255,.05)",
-                  color: "#fff",
-                  outline: "none",
-                }}
-              />
-            </div>
-          </div>
-
-          {/* DATE + TIME */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "14px",
-            }}
-          >
-            <div>
-              <label
-                style={{
-                  display: "block",
-                  marginBottom: "7px",
-                  color: "rgba(255,255,255,.55)",
-                  fontSize: "10px",
-                  letterSpacing: ".14em",
-                }}
-              >
-                APPOINTMENT DATE
-              </label>
-
-             <input
-  type="date"
-  min={new Date().toISOString().split("T")[0]}
-  required
-  style={{
-    width: "100%",
-    minHeight: "52px",
-    padding: "12px 14px",
-    borderRadius: "13px",
-    border: "1px solid rgba(255,255,255,.12)",
-    background: "#11182f",
-    color: "#fff",
-    outline: "none",
-    colorScheme: "dark",
-    fontFamily: "inherit",
-    cursor: "pointer",
-  }}
-/>
-            </div>
-
-            <div>
-              <label
-    style={{
-      display: "block",
-      marginBottom: "7px",
-      color: "rgba(255,255,255,.55)",
-      fontSize: "10px",
-      letterSpacing: ".14em",
-    }}
-  >
-    APPOINTMENT TIME
-  </label>
-
-  <button
-    type="button"
-    onClick={() => setIsTimePickerOpen(true)}
-    style={{
-      width: "100%",
-      minHeight: "52px",
-      padding: "12px 14px",
-      borderRadius: "13px",
-      border: "1px solid rgba(255,255,255,.12)",
-      background: "#11182f",
-      color: "#fff",
-      outline: "none",
-      fontFamily: "inherit",
-      cursor: "pointer",
-      textAlign: "left",
-    }}
-  >
-    {appointmentHour
-      ? `${appointmentHour}:${appointmentMinute} ${appointmentPeriod}`
-      : "Select appointment time"}
-  </button>
-
-{isTimePickerOpen && (
-  <>
-    <div
-      onClick={() => setIsTimePickerOpen(false)}
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 2147483646,
-        background: "rgba(0,0,0,.15)",
-      }}
-    />
-
-    <div
-      style={{
-        position: "fixed",
-        left: "50%",
-        top: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "330px",
-        maxWidth: "calc(100vw - 32px)",
-        padding: "22px",
-        borderRadius: "24px",
-        background: "#0d1429",
-        border: "1px solid rgba(95,230,255,.25)",
-        boxShadow:
-          "0 30px 100px rgba(0,0,0,.75), 0 0 50px rgba(95,230,255,.10)",
-        zIndex: 2147483647,
-      }}
-    >
-
-      {/* tumhara existing circular clock,
-          minutes, AM/PM aur DONE yahin rahega */}
-
-    </div>
-  </>
-)}
-
-  {isTimePickerOpen && (
-    <div
-      style={{
-  position: "fixed",
-  left: "50%",
-  top: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "330px",
-  maxWidth: "calc(100vw - 32px)",
-  padding: "22px",
-  borderRadius: "24px",
-  background: "#0d1429",
-  border: "1px solid rgba(95,230,255,.25)",
-  boxShadow:
-    "0 30px 100px rgba(0,0,0,.75), 0 0 50px rgba(95,230,255,.10)",
-  zIndex: 2147483647,
-}}
-    >
-      {/* TITLE */}
-      <div
-        style={{
-          textAlign: "center",
-          marginBottom: "16px",
-          color: "#fff",
-          fontWeight: 700,
-        }}
-      >
-        Select Time
-      </div>
-
-      {/* CLOCK */}
-      <div
-        style={{
-          position: "relative",
-          width: "250px",
-          height: "250px",
-          margin: "0 auto 20px",
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle, #182343 0%, #0a1021 72%)",
-          border: "1px solid rgba(95,230,255,.2)",
-          boxShadow:
-            "inset 0 0 35px rgba(95,230,255,.06), 0 0 30px rgba(95,230,255,.08)",
-        }}
-      >
-        {Array.from({ length: 12 }, (_, i) => {
-          const hour = String(i + 1).padStart(2, "0");
-          const angle = i * 30;
-          const radius = 92;
-
-          const x =
-            Math.sin((angle * Math.PI) / 180) * radius;
-
-          const y =
-            -Math.cos((angle * Math.PI) / 180) * radius;
-
-          const active =
-            appointmentHour === hour;
-
-          return (
-            <button
-              key={hour}
-              type="button"
-              onClick={() => {
-                setAppointmentHour(hour);
-                setAppointmentMinute("");
-              }}
-              style={{
-                position: "absolute",
-                left: "50%",
-                top: "50%",
-                transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
-                width: "34px",
-                height: "34px",
-                borderRadius: "50%",
-                border: "0",
-                background: active
-                  ? "linear-gradient(135deg,#5fe6ff,#8173ff)"
-                  : "transparent",
-                color: "#fff",
-                fontSize: "13px",
-                fontWeight: active ? 800 : 500,
-                cursor: "pointer",
-              }}
-            >
-              {i + 1}
-            </button>
-          );
-        })}
-
-        {/* CENTER */}
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "12px",
-            height: "12px",
-            borderRadius: "50%",
-            background: "#5fe6ff",
-            boxShadow: "0 0 16px #5fe6ff",
-          }}
-        />
-      </div>
-
-      {/* MINUTES */}
-      <div
-        style={{
-          display: "flex",
-          gap: "7px",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          marginBottom: "18px",
-        }}
-      >
-        {[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55].map(
-          (minute) => {
-            const value = String(minute).padStart(2, "0");
-            const active = appointmentMinute === value;
-
-            return (
-              <button
-                key={value}
-                type="button"
-                disabled={!appointmentHour}
-                onClick={() => setAppointmentMinute(value)}
-                style={{
-                  width: "42px",
-                  height: "34px",
-                  borderRadius: "10px",
-                  border: "1px solid rgba(255,255,255,.1)",
-                  background: active
-                    ? "linear-gradient(90deg,#5969ff,#8a67ff)"
-                    : "rgba(255,255,255,.05)",
-                  color: "#fff",
-                  cursor: appointmentHour
-                    ? "pointer"
-                    : "not-allowed",
-                  opacity: appointmentHour ? 1 : 0.4,
-                  fontSize: "11px",
-                }}
-              >
-                {value}
-              </button>
-            );
-          }
-        )}
-      </div>
-
-      {/* AM / PM */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "10px",
-          marginBottom: "14px",
-        }}
-      >
-        {["AM", "PM"].map((period) => (
-          <button
-            key={period}
-            type="button"
-            disabled={!appointmentMinute}
-            onClick={() => {
-              setAppointmentPeriod(period);
-            }}
-            style={{
-              minHeight: "42px",
-              borderRadius: "12px",
-              border: "1px solid rgba(255,255,255,.1)",
-              background:
-                appointmentPeriod === period
-                  ? "linear-gradient(90deg,#5969ff,#8a67ff)"
-                  : "rgba(255,255,255,.05)",
-              color: "#fff",
-              cursor: appointmentMinute
-                ? "pointer"
-                : "not-allowed",
-              opacity: appointmentMinute ? 1 : 0.4,
-              fontWeight: 700,
-            }}
-          >
-            {period}
-          </button>
-        ))}
-      </div>
-
-      {/* DONE */}
-      <button
-        type="button"
-        disabled={
-          !appointmentHour ||
-          !appointmentMinute ||
-          !appointmentPeriod
-        }
-        onClick={() => setIsTimePickerOpen(false)}
-        style={{
-          width: "100%",
-          minHeight: "44px",
-          border: "0",
-          borderRadius: "12px",
-          background:
-            appointmentHour &&
-            appointmentMinute &&
-            appointmentPeriod
-              ? "linear-gradient(90deg,#5fe6ff,#8173ff,#a855f7)"
-              : "rgba(255,255,255,.08)",
-          color: "#fff",
-          fontWeight: 700,
-          cursor:
-            appointmentHour &&
-            appointmentMinute &&
-            appointmentPeriod
-              ? "pointer"
-              : "not-allowed",
-        }}
-      >
-        DONE
-      </button>
-    </div>
-  )}
-</div>
-          </div>
-
-          {/* EMAIL */}
-          <div>
-            <label
-              style={{
-                display: "block",
-                marginBottom: "7px",
-                color: "rgba(255,255,255,.55)",
-                fontSize: "10px",
-                letterSpacing: ".14em",
-              }}
-            >
-              EMAIL
-            </label>
-
-            <input
-              type="email"
-              placeholder="you@example.com"
-              required
-              style={{
-                width: "100%",
-                minHeight: "48px",
-                padding: "12px 14px",
-                borderRadius: "13px",
-                border: "1px solid rgba(255,255,255,.1)",
-                background: "rgba(255,255,255,.05)",
-                color: "#fff",
-                outline: "none",
-              }}
-            />
-          </div>
-
-          {/* SUBMIT */}
-          <button
-            type="submit"
-            style={{
-              minHeight: "52px",
-              marginTop: "4px",
-              border: "0",
-              borderRadius: "14px",
-              color: "#fff",
-              fontFamily: "inherit",
-              fontWeight: 700,
-              cursor: "pointer",
-              background:
-                "linear-gradient(90deg,#5969ff,#8a67ff,#c967ff)",
-              boxShadow: "0 15px 35px rgba(100,100,255,.22)",
-            }}
-          >
-            REQUEST CONSULTATION →
-          </button>
-
-        </form>
-      </div>
-    </div>,
-    document.body
-  )}
 
 </main>
 );

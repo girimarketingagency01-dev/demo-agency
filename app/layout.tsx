@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
+import CustomCursor from "@/components/CustomCursor";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -21,7 +24,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={poppins.variable}>
-      <body>{children}</body>
+     <body>
+
+  <CustomCursor />
+
+  <SiteHeader />
+
+  {children}
+
+  <SiteFooter />
+
+</body>
     </html>
   );
 }
+
