@@ -708,7 +708,7 @@ return (
         }`}
         data-planet="seo"
       >
-        <span>SEO</span>
+        <span>GMB</span>
       </div>
 
 
@@ -1670,7 +1670,7 @@ IMMERSIVE PROCESS STORY
 
             <input
               type="text"
-              placeholder="Your full name"
+              placeholder="Your Full Name"
               required
               style={{
                 width: "100%",
@@ -1708,7 +1708,7 @@ IMMERSIVE PROCESS STORY
 
               <input
                 type="tel"
-                placeholder="+91 98765 43210"
+                placeholder="+91 80767 28103"
                 required
                 style={{
                   width: "100%",
