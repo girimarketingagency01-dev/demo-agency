@@ -188,7 +188,7 @@ export default function SiteFooter() {
           </span>
 
           <span className="footer-infinity-line">
-  Made with <span className="footer-heart">♥</span> in India · By Mehak Bhatnagar
+  Made with <span className="footer-heart">♥</span> in India · By Aniket
 </span>
 
         </div>
