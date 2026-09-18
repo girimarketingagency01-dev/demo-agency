@@ -17,10 +17,47 @@ export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] =
     useState(false);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setIsSubmitted(true);
+  const handleSubmit = async (
+  event: React.FormEvent<HTMLFormElement>
+) => {
+  event.preventDefault();
+
+  const form = event.currentTarget;
+  const formData = new FormData(form);
+
+  const data = {
+    fullName: formData.get("fullName"),
+    mobileNumber: formData.get("mobileNumber"),
+    country: formData.get("country"),
+    service: formData.get("service"),
+    otherService: formData.get("otherService"),
+    appointmentDate: formData.get("appointmentDate"),
+    appointmentTime: formData.get("appointmentTime"),
+    email: formData.get("email"),
   };
+
+  try {
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      alert(result.message || "Something went wrong.");
+      return;
+    }
+
+    setIsSubmitted(true);
+  } catch (error) {
+    console.error("Contact form error:", error);
+    alert("Unable to send your request. Please try again.");
+  }
+};
 
   return (
     <main className="contact-page">
@@ -71,11 +108,11 @@ export default function ContactPage() {
                 </label>
 
                 <input
-                  type="text"
-                  name="name"
-                  placeholder="Your full name"
-                  required
-                />
+  type="text"
+  name="fullName"
+  placeholder="Your full name"
+  required
+/>
               </div>
 
 
@@ -90,12 +127,11 @@ export default function ContactPage() {
                   </label>
 
                   <input
-                    type="tel"
-                    name="mobile"
-                    placeholder="+91 98765 43210"
-                    required
-                  />
-
+  type="tel"
+  name="mobileNumber"
+  placeholder="+91 80767 28103"
+  required
+/>
                 </div>
 
 
@@ -244,6 +280,16 @@ export default function ContactPage() {
                   </button>
 
                 </div>
+
+                <input
+  type="hidden"
+  name="appointmentTime"
+  value={
+    appointmentHour && appointmentMinute && appointmentPeriod
+      ? `${appointmentHour}:${appointmentMinute} ${appointmentPeriod}`
+      : ""
+  }
+/>
 
               </div>
 
