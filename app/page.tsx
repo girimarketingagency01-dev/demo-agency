@@ -634,7 +634,7 @@ return (
         }`}
         data-planet="seo"
       >
-        <span>GMB</span>
+        <span>WEB</span>
       </div>
 
 
@@ -646,7 +646,7 @@ return (
         }`}
         data-planet="ads"
       >
-        <span>ADS</span>
+        <span>SOCIAL</span>
       </div>
 
 
@@ -658,7 +658,8 @@ return (
         }`}
         data-planet="web"
       >
-        <span>WEB</span>
+        <span>GMB
+        </span>
       </div>
 
 
@@ -670,7 +671,7 @@ return (
         }`}
         data-planet="social"
       >
-        <span>SOCIAL</span>
+        <span>ADS</span>
       </div>
 
 
