@@ -188,7 +188,7 @@ export default function SiteFooter() {
           </span>
 
           <span className="footer-infinity-line">
-   <span className="footer-heart">♥</span> 
+   <span className="footer-heart"></span> 
 </span>
 
         </div>
