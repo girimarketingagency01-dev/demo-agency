@@ -40,7 +40,7 @@ const safeAppointmentTime = appointmentTime || "Not selected";
 
     const { data, error } = await resend.emails.send({
       from: "Infinity Digital Marketing <onboarding@resend.dev>",
-      to: [process.env.CONTACT_EMAIL!],
+      to: ["girimarketingagency01@gmail.com"],
       replyTo: email,
       subject: `New Query Received — ${fullName}`,
 
