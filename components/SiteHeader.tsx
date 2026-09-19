@@ -43,9 +43,9 @@ export default function SiteHeader() {
 
       {/* DESKTOP NAV */}
       <nav className="desktop-nav">
-        <Link href="/#services">Services</Link>
+        <Link href="/services">Services</Link>
         <Link href="/pricing">Pricing</Link>
-        <Link href="/#about">About</Link>
+        <Link href="/about">About</Link>
       </nav>
 
       {/* DESKTOP LET'S TALK */}
@@ -71,7 +71,7 @@ export default function SiteHeader() {
       {/* MOBILE MENU */}
       <div className={`mobile-menu ${isMenuOpen ? "open" : ""}`}>
         <div className="mobile-menu-inner">
-          <Link href="/#services" onClick={closeMenu}>
+          <Link href="/services" onClick={closeMenu}>
             <span>01</span>
             Services
           </Link>
@@ -81,10 +81,10 @@ export default function SiteHeader() {
             Pricing
           </Link>
 
-          <Link href="/#about" onClick={closeMenu}>
-            <span>03</span>
-            About
-          </Link>
+         <a href="/about" onClick={closeMenu}>
+  <span>03</span>
+  About
+</a>
 
           <Link
             href="/contact"

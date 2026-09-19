@@ -9868,7 +9868,7 @@ html {
 
   letter-spacing: -.06em;
 
-  font-weight: 800;
+  font-weight: 400;
 }
 
 .pricing-hero h1 em {
@@ -11800,4 +11800,507 @@ span {
   filter: drop-shadow(
     0 0 18px rgba(0, 200, 255, 0.08)
   );
+}
+
+
+
+
+
+
+/* =========================================
+   LEGAL PAGES
+========================================= */
+
+.legal-page {
+  min-height: 100vh;
+  background: #03050a;
+  color: #ffffff;
+}
+
+.legal-page-inner {
+  width: min(1100px, 92%);
+  margin: 0 auto;
+}
+
+.legal-page-hero {
+  padding: 170px 0 90px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(0, 217, 255, 0.08), transparent 35%),
+    radial-gradient(circle at 80% 30%, rgba(120, 76, 255, 0.08), transparent 35%),
+    #03050a;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.legal-page-kicker {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #00d9ff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.legal-page-hero h1 {
+  margin: 0;
+  font-size: clamp(48px, 7vw, 90px);
+  line-height: 0.95;
+  color: #ffffff;
+}
+
+.legal-page-hero h1 em {
+  font-style: normal;
+  background: linear-gradient(
+    90deg,
+    #00d9ff,
+    #4d7cff,
+    #9a4dff
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.legal-page-hero p {
+  max-width: 760px;
+  margin: 30px 0 20px;
+  color: #ffffff;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.legal-page-updated {
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.legal-page-content {
+  padding: 80px 0 120px;
+}
+
+.legal-block {
+  padding: 32px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.legal-block h2 {
+  margin: 0 0 14px;
+  color: #ffffff;
+  font-size: 22px;
+}
+
+.legal-block p {
+  margin: 0;
+  max-width: 900px;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+@media (max-width: 768px) {
+  .legal-page-hero {
+    padding: 130px 0 65px;
+  }
+
+  .legal-page-content {
+    padding: 50px 0 80px;
+  }
+
+  .legal-block {
+    padding: 25px 0;
+  }
+
+  .legal-block h2 {
+    font-size: 19px;
+  }
+
+  .legal-block p {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   INNER PAGES
+========================================= */
+
+.inner-page {
+  min-height: 100vh;
+  background: #03050a;
+  color: #fff;
+}
+
+.inner-page-container {
+  width: min(1180px, 92%);
+  margin: 0 auto;
+}
+
+.inner-page-hero {
+  padding: 180px 0 100px;
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(0, 217, 255, 0.10),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 85% 25%,
+      rgba(120, 76, 255, 0.12),
+      transparent 35%
+    ),
+    #03050a;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.inner-page-kicker {
+  display: inline-block;
+  margin-bottom: 22px;
+  color: #00d9ff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.inner-page-hero h1 {
+  margin: 0;
+  font-size: clamp(52px, 7vw, 100px);
+  line-height: 0.94;
+  color: #fff;
+}
+
+.inner-page-hero h1 em,
+.inner-page-cta h2 em,
+.about-founder-copy h2 em,
+.about-approach-section h2 em {
+  font-style: normal;
+  background: linear-gradient(
+    90deg,
+    #00d9ff,
+    #4d7cff,
+    #9b4dff
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.inner-page-hero p {
+  max-width: 760px;
+  margin: 32px 0 0;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+
+/* SERVICES */
+
+.services-page-list {
+  padding: 90px 0 120px;
+}
+
+.service-page-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 70px 1fr auto;
+  gap: 35px;
+  align-items: center;
+  padding: 42px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.service-page-number {
+  color: #00d9ff;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.service-page-main h2 {
+  margin: 0 0 14px;
+  color: #fff;
+  font-size: clamp(28px, 3vw, 46px);
+}
+
+.service-page-description {
+  max-width: 700px;
+  margin: 0 0 24px;
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.service-page-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.service-page-points span {
+  padding: 8px 13px;
+  border: 1px solid rgba(0,217,255,0.18);
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(255,255,255,0.025);
+  font-size: 12px;
+}
+
+.service-page-arrow {
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: .3s ease;
+}
+
+.service-page-arrow:hover {
+  color: #00d9ff;
+  transform: translateX(5px);
+}
+
+
+/* ABOUT */
+
+.about-founder-section {
+  padding: 110px 0;
+}
+
+.about-founder-grid {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-founder-image {
+  position: relative;
+}
+
+.about-founder-frame {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  border-radius: 28px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: #080c14;
+}
+
+.about-founder-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.about-founder-glow {
+  position: absolute;
+  inset: 10% -8%;
+  background: linear-gradient(
+    135deg,
+    rgba(0,217,255,.25),
+    rgba(130,70,255,.24)
+  );
+  filter: blur(70px);
+}
+
+.about-founder-tag {
+  position: absolute;
+  z-index: 3;
+  left: 20px;
+  bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px;
+  background: rgba(3,5,10,.72);
+  backdrop-filter: blur(15px);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.about-founder-tag span {
+  color: #00d9ff;
+  font-size: 20px;
+}
+
+.about-founder-copy h2 {
+  margin: 0 0 24px;
+  color: #fff;
+  font-size: clamp(40px, 5vw, 70px);
+  line-height: 1;
+}
+
+.about-founder-copy p {
+  max-width: 700px;
+  margin: 0 0 20px;
+  color: #fff;
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+.about-founder-signature {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.about-founder-signature strong {
+  color: #fff;
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.about-founder-signature span {
+  color: #00d9ff;
+  font-size: 14px;
+}
+
+
+/* APPROACH */
+
+.about-approach-section {
+  padding: 110px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.about-approach-section h2 {
+  margin: 0 0 60px;
+  color: #fff;
+  font-size: clamp(40px, 5vw, 70px);
+  line-height: 1;
+}
+
+.about-principles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.about-principles > div {
+  padding: 28px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  background: rgba(255,255,255,.025);
+  transition: .35s ease;
+}
+
+.about-principles > div:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0,217,255,.35);
+  box-shadow: 0 20px 50px rgba(0,217,255,.07);
+}
+
+.about-principles span {
+  color: #00d9ff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.about-principles h3 {
+  margin: 18px 0 12px;
+  color: #fff;
+  font-size: 24px;
+}
+
+.about-principles p {
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+
+/* CTA */
+
+.inner-page-cta {
+  padding: 130px 0;
+  text-align: center;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(0,217,255,.08),
+      transparent 38%
+    ),
+    #03050a;
+}
+
+.inner-page-cta > .inner-page-container > span {
+  color: #00d9ff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.inner-page-cta h2 {
+  margin: 20px 0 35px;
+  color: #fff;
+  font-size: clamp(48px, 7vw, 90px);
+  line-height: .95;
+}
+
+.inner-page-cta a {
+  display: inline-flex;
+  padding: 15px 24px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    #00d9ff,
+    #4d7cff,
+    #9b4dff
+  );
+  color: #fff;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .inner-page-hero {
+    padding: 140px 0 70px;
+  }
+
+  .inner-page-hero h1 {
+    font-size: 52px;
+  }
+
+  .inner-page-hero p {
+    font-size: 16px;
+  }
+
+  .service-page-card {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .service-page-arrow {
+    display: inline-block;
+  }
+
+  .about-founder-grid {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
+  .about-principles {
+    grid-template-columns: 1fr;
+  }
+
+  .inner-page-cta h2 {
+    font-size: 52px;
+  }
 }

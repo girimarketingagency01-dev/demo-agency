@@ -85,23 +85,23 @@ export default function SiteFooter() {
             <h3>Services</h3>
 
             <div className="footer-vertical-links">
-              <Link href="/#services">
+              <Link href="/services">
                 Web Design & Development
               </Link>
 
-              <Link href="/#services">
+              <Link href="/services">
                 Meta Ads
               </Link>
 
-              <Link href="/#services">
+              <Link href="/services">
                 Google Ads
               </Link>
 
-              <Link href="/#services">
+              <Link href="/services">
                 Social Media Marketing
               </Link>
 
-              <Link href="/#services">
+              <Link href="/services">
                 Performance Marketing
               </Link>
             </div>
@@ -149,7 +149,7 @@ export default function SiteFooter() {
             <h3>Company</h3>
 
             <div className="footer-vertical-links">
-              <Link href="/#about">
+              <Link href="/about">
                 About Infinity
               </Link>
 
