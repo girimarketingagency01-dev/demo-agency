@@ -12304,3 +12304,495 @@ span {
     font-size: 52px;
   }
 }
+
+
+
+/* =========================================================
+   INFINITY CINEMATIC INTRO
+   Total duration: 4 seconds
+========================================================= */
+
+.infinity-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #000;
+  overflow: hidden;
+  pointer-events: none;
+
+  animation: splash-fade-away 0.8s ease forwards;
+  animation-delay: 5.2s;
+}
+
+
+/* =========================================================
+   AMBIENT LIGHT
+========================================================= */
+
+.splash-ambient-glow {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(0, 220, 255, 0.18) 0%,
+      rgba(70, 90, 255, 0.10) 38%,
+      rgba(150, 70, 255, 0.06) 58%,
+      transparent 72%
+    );
+
+  filter: blur(20px);
+
+  opacity: 0;
+
+  animation:
+    splash-ambient-in 1.2s ease forwards,
+    splash-ambient-pulse 1.4s ease-in-out 1.2s infinite;
+}
+
+
+/* =========================================================
+   LIGHT STREAK
+========================================================= */
+
+.splash-light-streak {
+  position: absolute;
+
+  width: 260px;
+  height: 2px;
+
+  border-radius: 999px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #00eaff,
+    #7b7cff,
+    #a94dff,
+    transparent
+  );
+
+  box-shadow:
+    0 0 12px rgba(0, 234, 255, 0.8),
+    0 0 28px rgba(90, 100, 255, 0.5);
+
+  opacity: 0;
+  transform: scaleX(0);
+
+  animation: splash-streak 0.75s cubic-bezier(.22,.61,.36,1) forwards;
+
+  top: 50%;
+  left: 50%;
+  margin-left: -130px;
+}
+
+
+/* =========================================================
+   PORTAL
+========================================================= */
+
+.splash-portal {
+  position: relative;
+
+  width: 260px;
+  height: 220px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+
+  transform: scale(0.92);
+
+  animation: splash-portal-sequence 5.1s cubic-bezier(.16,.75,.22,1) forwards;
+
+  animation-delay: 0.55s;
+}
+
+
+/* =========================================================
+   INFINITY SVG
+========================================================= */
+
+.splash-infinity-svg {
+  position: absolute;
+
+  width: 235px;
+  height: auto;
+
+  overflow: visible;
+}
+
+.splash-infinity-path {
+  stroke-dasharray: 520;
+  stroke-dashoffset: 520;
+
+  animation:
+    splash-draw-infinity 1.35s cubic-bezier(.65,0,.35,1) forwards,
+    splash-infinity-pulse 1.2s ease-in-out 1.55s infinite alternate;
+}
+
+
+/* =========================================================
+   GLOW
+========================================================= */
+
+.splash-infinity-glow {
+  position: absolute;
+
+  width: 155px;
+  height: 90px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(0, 234, 255, 0.28),
+      rgba(90, 80, 255, 0.16),
+      rgba(160, 70, 255, 0.05),
+      transparent 72%
+    );
+
+  filter: blur(28px);
+
+  opacity: 0;
+
+  animation: splash-glow-in 1s ease forwards;
+  animation-delay: 1.2s;
+}
+
+
+/* =========================================================
+   PORTAL RINGS
+========================================================= */
+
+.splash-ring {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 160px;
+  height: 90px;
+
+  border: 1px solid rgba(0, 217, 255, 0.2);
+
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%) scale(0.55);
+
+  opacity: 0;
+}
+
+.splash-ring-one {
+  animation: splash-ring-one 2.2s ease-out forwards;
+  animation-delay: 1.25s;
+}
+
+.splash-ring-two {
+  width: 190px;
+  height: 110px;
+
+  border-color: rgba(145, 80, 255, 0.14);
+
+  animation: splash-ring-two 2.4s ease-out forwards;
+  animation-delay: 1.45s;
+}
+
+
+/* =========================================================
+   BRAND TEXT
+========================================================= */
+
+.splash-brand-text {
+  position: absolute;
+  left: 50%;
+  top: 65%;
+  transform: translate(-50%, -50%) translateY(20px);
+
+  z-index: 20;
+
+  width: max-content;
+  text-align: center;
+
+  font-family: var(--font-montserrat), Arial, sans-serif;
+  font-size: clamp(42px, 5vw, 82px);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.9;
+
+  color: #ffffff;
+
+  opacity: 0;
+
+  animation: splash-brand-reveal 0.9s ease-out forwards;
+  animation-delay: 1.25s;
+
+  pointer-events: none;
+}
+
+.splash-brand-text span {
+  display: block;
+  margin-top: 14px;
+
+  font-family: var(--font-montserrat), Arial, sans-serif;
+  font-size: clamp(13px, 1.15vw, 22px);
+  font-weight: 500;
+  letter-spacing: 0.5em;
+  line-height: 1;
+
+  color: #ffffff;
+}
+
+@keyframes splash-brand-reveal {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0);
+  }
+}
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes splash-streak {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+
+
+@keyframes splash-ambient-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+@keyframes splash-ambient-pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.16);
+  }
+}
+
+
+@keyframes splash-draw-infinity {
+  0% {
+    stroke-dashoffset: 520;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+
+@keyframes splash-infinity-pulse {
+  0% {
+    filter:
+      drop-shadow(0 0 8px rgba(0, 217, 255, 0.35))
+      drop-shadow(0 0 18px rgba(100, 80, 255, 0.16));
+  }
+
+  100% {
+    filter:
+      drop-shadow(0 0 18px rgba(0, 217, 255, 0.7))
+      drop-shadow(0 0 42px rgba(120, 70, 255, 0.42));
+  }
+}
+
+
+@keyframes splash-glow-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.65);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+@keyframes splash-portal-sequence {
+
+  /* appear */
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  /* reveal */
+  12% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* slight zoom OUT */
+  45% {
+    opacity: 1;
+    transform: scale(0.74);
+  }
+
+  /* portal zoom IN */
+  72% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+
+  /* powerful expansion */
+  100% {
+    opacity: 0;
+    transform: scale(10);
+  }
+}
+
+
+@keyframes splash-ring-one {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+
+  25% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.6);
+  }
+}
+
+
+@keyframes splash-ring-two {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+
+  25% {
+    opacity: 0.45;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(3);
+  }
+}
+
+
+@keyframes splash-brand-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes splash-fade-away {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  70% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  .splash-portal {
+    width: 230px;
+    height: 200px;
+  }
+
+  .splash-infinity-svg {
+    width: 205px;
+  }
+
+  .splash-light-streak {
+    width: 210px;
+    margin-left: -105px;
+  }
+
+  .splash-brand-text {
+    bottom: 0;
+    font-size: 10px;
+    letter-spacing: 3px;
+  }
+
+  .splash-brand-text span {
+    font-size: 6px;
+  }
+}
+@media (max-width: 768px) {
+  .splash-brand-text {
+    top: 72%;
+    font-size: clamp(50px, 13vw, 72px);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    line-height: 0.88;
+  }
+
+  .splash-brand-text span {
+    margin-top: 12px;
+    font-size: clamp(11px, 3.2vw, 17px);
+    font-weight: 500;
+    letter-spacing: 0.34em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+}

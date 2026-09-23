@@ -1,3 +1,4 @@
+import SplashScreen from "@/components/SplashScreen";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
@@ -98,7 +99,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={poppins.variable}>
      <body>
-
+  <SplashScreen />
+  
   <CustomCursor />
 
   <SiteHeader />
