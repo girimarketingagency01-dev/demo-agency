@@ -586,7 +586,7 @@ return (
 </a>
 
         <a
-          href="#services"
+          href="/services"
           className="secondary-button"
         >
           Explore Services
